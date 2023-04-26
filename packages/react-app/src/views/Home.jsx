@@ -2,6 +2,7 @@ import { useContractReader } from "eth-hooks";
 import { ethers } from "ethers";
 import React from "react";
 import { Link } from "react-router-dom";
+import { ProposalTable } from "./";
 
 /**
  * web3 props can be passed from '../App.jsx' into your local view component for use
@@ -17,6 +18,7 @@ function Home({ yourLocalBalance, readContracts }) {
   return (
     <div>
       <div style={{ margin: 32 }}>
+        <ProposalTable />
         <span style={{ marginRight: 8 }}>📝</span>
         This Is Your App Home. You can start editing it in{" "}
         <span

@@ -24,7 +24,7 @@ struct Proposal {
     ProposalStatus status;
 }
 
-contract Khazum is Ownable {
+contract Khazi is Ownable {
     event ProposalCreated(uint256 proposalId, string title);
     event VoteCasted(uint256 proposalId, address voter, Option selectedOption);
     event ProposalStatusChanged(uint256 proposalId, ProposalStatus status);
