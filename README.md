@@ -7,6 +7,8 @@ DAO development learning project that makes 3 different DAOs with increasing dif
 - **Khazerium** (DAO + ERCVotes + mint NFT to proposal executor)
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
 
+> Note: Idea was originated by [quaxwell-dapp](https://github.com/luloxi/quaxwell-dapp), a repo I was working on before I started playing with scaffold-eth
+
 ## Pending changes
 
 - Add functionality to buttons (maybe with the help of update-frontend from hardhat)
