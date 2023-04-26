@@ -337,7 +337,7 @@ function App(props) {
             */}
 
           <Contract
-            name="Khazum"
+            name="Khazi"
             price={price}
             signer={userSigner}
             provider={localProvider}

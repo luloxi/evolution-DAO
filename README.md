@@ -9,10 +9,17 @@ DAO development learning project that makes 3 different DAOs with increasing dif
 
 ## Pending changes
 
-- Test the contract works as intended
-- Implement Ant UI on frontend
-- Write a createProposal.js script
+- Add functionality to buttons (maybe with the help of update-frontend from hardhat)
+- Test Khazi works as intended
+- Add ERC20 for votes to Khazum
 - Write tests
+
+## Later changes
+
+- Make a nicer frontend
+- Config docker/package.json to make the express server run on deploy to surge
+- Config express, createProposal and .jsx elements to read dynamically abi and address based on chainId
+- Update frontend dynamically when a new proposal is posted (express?)
 
 # 🏄‍♂️ Quick Start
 
