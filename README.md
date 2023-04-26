@@ -1,6 +1,6 @@
 # 🏗 evolution-DAO
 
-DAO development learning project that makes 3 different DAOs with increasing difficulty level
+DAO development learning project that makes different DAOs with increasing difficulty level
 
 - **Khazi** (DAO with one vote per address)
 - **Khazum** (DAO with ERC20 as votes)
