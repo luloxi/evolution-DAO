@@ -3,16 +3,21 @@
 DAO development learning project that makes 3 different DAOs with increasing difficulty level
 
 - **Khazi** (DAO with one vote per address)
-- **Khazum** (DAO with ERC20 for votes)
+- **Khazum** (DAO with ERC20 as votes)
 - **Khazerium** (DAO + ERCVotes + mint NFT to proposal executor)
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
+- **Khazito** (DAO with NFT as votes that invests DAO funds in holder proposed NFTs on a Marketplace)
+- **Khazefi** (DAO with Dynamic NFT as votes that allows withdrawal of ETH and decides where to stake it on execute)
+
+[evolution-DAO is a public good of BuidlGuidl](https://buidlguidl.com/build/0XiixjBqbKqluguYpmFE)
 
 > Note: Idea was originated by [quaxwell-dapp](https://github.com/luloxi/quaxwell-dapp), a repo I was working on before I started playing with scaffold-eth
 
 ## Pending changes
 
 - Add functionality to buttons (maybe with the help of update-frontend from hardhat)
-- Test Khazi works as intended
+- Make express process the button function
+- Make Khazi a minimal version of Khazum
 - Add ERC20 for votes to Khazum
 - Write tests
 
