@@ -1,12 +1,12 @@
 const { ethers } = require("hardhat");
-const khaziContractAddress =
-  require("../deployments/localhost/Khazi.json").address;
+const khazumContractAddress =
+  require("../deployments/localhost/Khazum.json").address;
 
 async function main() {
-  // Set up the Khazi contract instance
-  const contractAddress = khaziContractAddress;
-  const Khazi = await ethers.getContractFactory("Khazi");
-  const khazi = await Khazi.attach(contractAddress);
+  // Set up the Khazum contract instance
+  const contractAddress = khazumContractAddress;
+  const Khazum = await ethers.getContractFactory("Khazum");
+  const khazum = await Khazum.attach(contractAddress);
 
   // Set up the proposal details
   const title = "<PROPOSAL_TITLE>"; // i.e: Best ice-cream flavor
@@ -15,7 +15,7 @@ async function main() {
   const minimumVotes = "1"; // 1, unless you wanna require more than one voter
 
   // Create the proposal
-  await khazi.createProposal(
+  await khazum.createProposal(
     title,
     description,
     proposalDurationInMinutes,

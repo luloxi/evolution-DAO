@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 enum Option {
     A,
@@ -29,13 +30,17 @@ contract Khazum is Ownable {
     event VoteCasted(uint256 proposalId, address voter, Option selectedOption);
     event ProposalStatusChanged(uint256 proposalId, ProposalStatus status);
 
-    uint256 public proposalCounter; // Counter for proposals
+    IERC20 private khaToken;
 
+    uint256 public proposalCounter; // Counter for proposals
     mapping(uint256 => Proposal) public proposals; // Mapping to store proposals by ID
     mapping(address => mapping(uint256 => bool)) public hasVoted; // Mapping to keep track of voters
     mapping(address => mapping(uint256 => Option)) public voterOption; // Mapping to store the selected option for each voter
 
-    // Function to create a new proposal
+    constructor(address _khaTokenAddress) {
+        khaToken = IERC20(_khaTokenAddress);
+    }
+
     function createProposal(
         string memory _title,
         string memory _description,
@@ -62,7 +67,6 @@ contract Khazum is Ownable {
         emit ProposalCreated(proposalId, _title);
     }
 
-    // Function to cast vote for a proposal
     function castVote(uint256 _proposalId, Option _selectedOption) public {
         require(_proposalId < proposalCounter, "Invalid proposal ID");
         Proposal storage proposal = proposals[_proposalId];
@@ -79,10 +83,15 @@ contract Khazum is Ownable {
             "Invalid option"
         );
 
+        uint256 votingPower = khaToken.balanceOf(msg.sender);
+        require(votingPower > 0, "Voter has no voting power");
+
+        khaToken.transferFrom(msg.sender, address(this), votingPower);
+
         if (_selectedOption == Option.A) {
-            proposal.votesForOptionA++;
+            proposal.votesForOptionA += votingPower;
         } else {
-            proposal.votesForOptionB++;
+            proposal.votesForOptionB += votingPower;
         }
 
         hasVoted[msg.sender][_proposalId] = true;
