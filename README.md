@@ -4,6 +4,9 @@ DAO development learning project that makes different DAOs with increasing diffi
 
 - **Khazi** (DAO with one vote per address)
 - **Khazum** (DAO with ERC20 as votes)
+
+Future development:
+
 - **Khazerium** (DAO + ERCVotes + mint NFT to proposal executor)
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
 - **Khazito** (DAO with NFT as votes that invests DAO funds in holder proposed NFTs on a Marketplace)
