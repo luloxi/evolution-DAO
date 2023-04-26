@@ -94,7 +94,7 @@ Certain errors during the Quick Start are common, [see HOW-TO-SCAFFOLD-ETH.MD](h
 
 Can't run any of this commands from your Windows environment? [See HOW-TO-WSL.md](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-WSL.md)
 
-Don't have yarn to run the commands? [See HOW-TO-YARN-ETH.MD](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-YARN.md)
+Don't have yarn to run the commands? [See HOW-TO-YARN.MD](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-YARN.md)
 
 ## Deploy
 
