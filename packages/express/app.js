@@ -1,15 +1,15 @@
 const express = require("express");
 const { ethers } = require("ethers");
 const cors = require("cors");
-const KhazumABI = require("../hardhat/artifacts/contracts/Khazum.sol/Khazum.json");
-const Khazum = require("../hardhat/deployments/localhost/Khazum.json");
+const KhaziABI = require("../hardhat/artifacts/contracts/Khazi.sol/Khazi.json");
+const Khazi = require("../hardhat/deployments/localhost/Khazi.json");
 const app = express();
 
-const khazumContractAddress = Khazum.address;
+const khaziContractAddress = Khazi.address;
 const provider = ethers.getDefaultProvider("http://localhost:8545");
-const khazumContract = new ethers.Contract(
-  khazumContractAddress,
-  KhazumABI.abi,
+const khaziContract = new ethers.Contract(
+  khaziContractAddress,
+  KhaziABI.abi,
   provider
 );
 
@@ -17,12 +17,12 @@ const khazumContract = new ethers.Contract(
 app.use(cors());
 
 app.get("/proposals", async (req, res) => {
-  const proposalCount = await khazumContract.getProposalCount();
+  const proposalCount = await khaziContract.getProposalCount();
   const proposals = [];
   console.log("Got a proposal request, yay!");
 
   for (let i = 0; i < proposalCount; i++) {
-    const proposal = await khazumContract.getProposal(i);
+    const proposal = await khaziContract.getProposal(i);
     proposals.push({
       title: proposal.title,
       description: proposal.description,
