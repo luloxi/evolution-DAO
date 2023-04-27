@@ -12,7 +12,7 @@ export default function KhaFaucetUI({ tx, writeContracts, readContracts, address
   const yourBalance = useContractReader(readContracts, "KhaToken", "balanceOf", [address]);
 
   const requestTokens = async () => {
-    const requestForTokens = await tx(writeContracts.KhaFaucet.requestTokens(ethers.utils.parseEther("1500")));
+    const requestForTokens = await tx(writeContracts.KhaFaucet.requestTokens(ethers.utils.parseEther("5")));
   };
 
   return (
@@ -29,7 +29,7 @@ export default function KhaFaucetUI({ tx, writeContracts, readContracts, address
 
       <br />
       <Button style={{ margin: "1em auto" }} onClick={requestTokens} type="primary">
-        Claim 1500 KHA Tokens!
+        Claim 5 KHA Tokens!
       </Button>
     </Card>
   );

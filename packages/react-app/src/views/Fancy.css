@@ -14,6 +14,10 @@
   justify-content: center;
 }
 
+.proposal-card .ant-card-body {
+  padding: 10px 6px 0px;
+}
+
 .proposal-content-wrapper {
   width: 100%;
   display: flex;
@@ -50,9 +54,13 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
-  & > .ant-switch {
-    margin: 0 10px;
+  & > .option-label.selected-a {
+    background-color: #29bf12;
+    color: #ffffff;
+  }
+  & > .option-label.selected-b {
+    background-color: #0081a7;
+    color: #ffffff;
   }
 }
 
@@ -62,7 +70,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .option-label {
@@ -72,26 +80,11 @@
   font-weight: bold;
   font-size: 1.2rem;
   width: 50px;
-  height: 50px;
+  /* height: 50px; */
   border-radius: 50%;
   margin: 0 10px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
-}
-
-.proposal-switch {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  & > .option-label.selected-a {
-    background-color: #29bf12;
-    color: #ffffff;
-  }
-  & > .option-label.selected-b {
-    background-color: #0081a7;
-    color: #ffffff;
-  }
 }
 
 .selected-a {

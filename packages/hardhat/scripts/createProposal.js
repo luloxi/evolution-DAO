@@ -1,6 +1,6 @@
 const { ethers } = require("hardhat");
 const khazumContractAddress =
-  require("../deployments/localhost/Khazum.json").address;
+  require("../deployments/sepolia/Khazum.json").address;
 
 async function main() {
   // Set up the Khazum contract instance

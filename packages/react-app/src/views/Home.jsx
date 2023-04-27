@@ -30,7 +30,7 @@ function Home({ yourLocalBalance, readContracts, tx, writeContracts, address }) 
       }
 
       Promise.all(promises).then(results => {
-        setProposals(results);
+        setProposals(results.reverse()); // Reverse the order of the proposals
       });
     }
   }, [proposalCount]);

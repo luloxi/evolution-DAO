@@ -1,32 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, Switch, Typography, Card } from "antd";
-import { ethers } from "ethers";
-import { useContractReader } from "eth-hooks";
+import { Button, Switch, Card } from "antd";
 import { Fancy } from "./";
 
 const { Meta } = Card;
-const { Text } = Typography;
 
 const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts, address }) => {
   const [option, setOption] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(null);
-  const [status, setStatus] = useState(null);
 
-  console.log("VotesForOptionA:", proposal.votesForOptionA);
-
-  // Read the proposal status from the smart contract using useContractReader hook
-  const proposalStatus = useContractReader(readContracts, "Khazum", "getProposalStatus", [proposalId]);
+  const optionAVotes = Number(proposal.votesForOptionA) / 10 ** 18;
+  const optionBVotes = Number(proposal.votesForOptionB) / 10 ** 18;
+  const hasVotes = optionAVotes > 0 || optionBVotes > 0;
 
   useEffect(() => {
-    const getStatus = async () => {
-      const status = await readContracts.Khazum.getProposalStatus(proposalId);
-      setStatus(status);
-    };
-    getStatus();
-  }, [proposalId, readContracts.Khazum]);
-
-  useEffect(() => {
-    const now = Date.now() / 1000;
+    const now = Math.floor(new Date().getTime() / 1000);
     const proposalDeadline = parseInt(proposal.proposalDeadline, 10);
     if (now >= proposalDeadline) {
       setTimeRemaining(null);
@@ -42,30 +29,6 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
     }
   }, [proposal.proposalDeadline]);
 
-  const vote = async () => {
-    const result = tx(writeContracts.Khazum.vote(proposalId, option), update => {
-      console.log("📡 Transaction Update:", update);
-      if (update && (update.status === "confirmed" || update.status === 1)) {
-        console.log(" 🍾 Transaction " + update.hash + " finished!");
-        console.log(
-          " ⛽️ " +
-            update.gasUsed +
-            "/" +
-            (update.gasLimit || update.gas) +
-            " @ " +
-            parseFloat(update.gasPrice) / 1000000000 +
-            " gwei",
-        );
-      }
-    });
-    console.log("awaiting metamask/web3 confirm result...", result);
-    console.log(await result);
-  };
-
-  const optionAVotes = Number(proposal.votesForOptionA) / 10 ** 18;
-  const optionBVotes = Number(proposal.votesForOptionB) / 10 ** 18;
-  const isClosed = status === 1 || (optionAVotes === 0 && optionBVotes === 0);
-
   return (
     <Card
       className="proposal-card"
@@ -77,14 +40,15 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
           <span className={`option-label ${option === 1 ? "selected-b" : ""}`}>B</span>{" "}
         </div>,
         <Button
-          className="wide-button" // Add the class name here
+          className="wide-button"
           style={{
             backgroundColor: option === 0 ? "#29BF12" : option === 1 ? "#0081A7" : "initial",
             fontWeight: "bold",
-            // height: "40px",
           }}
           onClick={async () => {
-            const result = tx(writeContracts.Khazum.vote(proposalId, option), update => {
+            console.log("Proposal ID: ", proposalId);
+            const estimatedGas = await writeContracts.Khazum.estimateGas.vote(proposalId, option);
+            const result = tx(writeContracts.Khazum.vote(proposalId, option), { gasLimit: estimatedGas }, update => {
               console.log("📡 Transaction Update:", update);
               if (update && (update.status === "confirmed" || update.status === 1)) {
                 console.log(" 🍾 Transaction " + update.hash + " finished!");
@@ -112,22 +76,27 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
           <Meta title={proposal.title.toString()} description={proposal.description.toString()} />
           <div className="proposal-content">
             <p className="proposal-status">
-              Status:{" "}
-              {isClosed ? (
-                optionAVotes > 0 || optionBVotes > 0 ? (
-                  optionAVotes > optionBVotes ? (
-                    <span style={{ fontWeight: "bold", color: "#29bf12" }}>Option A won</span>
-                  ) : optionAVotes < optionBVotes ? (
-                    <span style={{ fontWeight: "bold", color: "#0081a7" }}>Option B won</span>
-                  ) : (
-                    <span style={{ fontWeight: "bold", color: "#ff9914" }}>Tie</span>
-                  )
-                ) : (
-                  <span style={{ fontWeight: "bold", color: "#ff9914" }}>Closed (no votes)</span>
-                )
-              ) : (
-                <span style={{ fontWeight: "bold", color: "#29bf12" }}>Pending</span>
+              {proposal.status === 0 && timeRemaining !== null && (
+                <span style={{ fontWeight: "bold", color: "#29bf12" }}>Open to vote</span>
               )}
+              {proposal.status === 1 || timeRemaining === null ? (
+                <>
+                  {!hasVotes && <span style={{ fontWeight: "bold", color: "#ff9914" }}>Ignored</span>}
+                  {hasVotes && (
+                    <>
+                      {optionAVotes > optionBVotes && (
+                        <span style={{ fontWeight: "bold", color: "#29bf12" }}>Option A won</span>
+                      )}
+                      {optionAVotes < optionBVotes && (
+                        <span style={{ fontWeight: "bold", color: "#0081a7" }}>Option B won</span>
+                      )}
+                      {optionAVotes === optionBVotes && (
+                        <span style={{ fontWeight: "bold", color: "#ff9914" }}>Tie</span>
+                      )}
+                    </>
+                  )}
+                </>
+              ) : null}
             </p>
           </div>
           <div className="proposal-content">
