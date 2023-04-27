@@ -7,8 +7,9 @@ DAO development learning project that makes different DAOs with increasing diffi
 
 Future development:
 
-- **Khazerium** (DAO + ERCVotes + mint NFT to proposal executor)
+- **Khazerium** (DAO + ERC20Votes + mint NFT to proposal executor)
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
+
 - **Khazito** (DAO with NFT as votes that invests DAO funds in holder proposed NFTs on a Marketplace)
 - **Khazefi** (DAO with Dynamic NFT as votes that allows withdrawal of ETH and decides where to stake it on execute)
 
@@ -58,16 +59,7 @@ cd evolution-DAO
 yarn deploy
 ```
 
-> 3️⃣ in a third terminal window, you can call scripts as Ownerstart your 📱 express backend:
-
-```bash
-cd evolution-DAO
-yarn express
-```
-
-💡 if you use **nodemon** for development, you can use `yarn expressmon` to start monitoring changes on `index.js` file
-
-> 3️⃣ in a fourth terminal window, start your 📱 frontend:
+> 3️⃣ in a third terminal window, start your 📱 frontend:
 
 🚨 if your contracts are not deployed to localhost, you will need to update the default network in `App.jsx` to match your default network in `hardhat-config.js`.
 
@@ -75,6 +67,8 @@ yarn express
 cd evolution-DAO
 yarn start
 ```
+
+📱 Open http://localhost:3000 to see the app
 
 🚨 if you are not deploying to localhost, you will need to run `yarn generate` first and then fund the deployer account. To view account balances, run `yarn account`. You will aslo need to update `hardhat-config.js` with the correct default network.
 
@@ -92,15 +86,25 @@ yarn create-proposal
 yarn deploy --reset
 ```
 
-Then `CTRL-C` and on your express terminal, press up arrow and run that last command again.
+## Deprecated
+
+> 3️⃣ in another terminal window, you can start your 📱 express backend:
+
+```bash
+cd evolution-DAO
+yarn express
+```
+
+💡 if you use **nodemon** for development, you can use `yarn expressmon` to start monitoring changes on `index.js` file
 
 ## File location
 
-🔏 Edit your smart contract in `packages/hardhat/contracts`
-📝 Edit your frontend `App.jsx` in `packages/react-app/src`
-💼 Edit your deployment scripts in `packages/hardhat/deploy`
+📝 Frontend base is `App.jsx` in `packages/react-app/src` and
+🦸 Frontend main component is `Home.jsx` in `packages/react-app/src/views`
 
-📱 Open http://localhost:3000 to see the app
+🔏 Smart contract are in `packages/hardhat/contracts`
+🚀 Deployment scripts are in `packages/hardhat/deploy`
+👨‍💻 Other scripts are in `packages/hardhat/scripts`
 
 🚨📡 To deploy to a public domain, use `yarn surge`. You will need to have a surge account and have the surge CLI installed. There is also the option to deploy to IPFS using `yarn ipfs` and `yarn s3` to deploy to an AWS bucket 🪣 There are scripts in the `packages/react-app/src/scripts` folder to help with this.`
 
@@ -108,11 +112,11 @@ Then `CTRL-C` and on your express terminal, press up arrow and run that last com
 
 ## Running the first time
 
-Certain errors during the Quick Start are common, [see HOW-TO-SCAFFOLD-ETH.MD](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-SCAFFOLD-ETH.md)
-
 Can't run any of this commands from your Windows environment? [See HOW-TO-WSL.md](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-WSL.md)
 
 Don't have yarn to run the commands? [See HOW-TO-YARN.MD](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-YARN.md)
+
+Certain errors during the Quick Start are common, [see HOW-TO-SCAFFOLD-ETH.MD](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-SCAFFOLD-ETH.md)
 
 ## Deploy
 

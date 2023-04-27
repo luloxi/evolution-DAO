@@ -150,4 +150,11 @@ contract Khazum is Ownable {
     function getProposalCount() public view returns (uint256) {
         return proposalCounter;
     }
+
+    // Function to get the total number of proposals
+    function getProposalStatus(
+        uint256 proposalId
+    ) public view returns (ProposalStatus) {
+        return proposals[proposalId].status;
+    }
 }

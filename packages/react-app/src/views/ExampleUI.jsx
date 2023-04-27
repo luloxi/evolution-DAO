@@ -17,7 +17,6 @@ export default function ExampleUI({
 }) {
   const [proposalId, setProposalId] = useState("0");
   const [voteOption, setVoteOption] = useState("0");
-  console.log("ExampleUI writeContracts", writeContracts);
 
   return (
     <div>

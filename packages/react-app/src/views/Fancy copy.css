@@ -1,0 +1,150 @@
+.proposal-switch {
+  margin: 0;
+}
+
+.proposal-switch .ant-switch-inner {
+  width: 40px;
+  height: 24px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: none;
+}
+
+.proposal-switch .ant-switch-handle {
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+}
+
+.proposal-switch .ant-switch-handle:after {
+  /* content: "A"; */
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  background-color: #29bf12;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: transform 0.3s ease-in-out;
+}
+
+.proposal-switch.ant-switch-checked .ant-switch-handle:after {
+  /* content: "B"; */
+  left: 22px;
+  background-color: #0081a7;
+}
+
+// Proposal Card Styles
+
+.proposal-card {
+  max-width: 800px;
+  margin: 2em auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.proposal-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start !important;
+}
+
+.proposal-column {
+  width: 50%;
+}
+
+.proposal-status {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.card-content {
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: start;
+  align-items: flex-start;
+  /* margin-top: 10px; */
+  /* width: 100%; */
+}
+
+.card-content > div {
+  width: 50%;
+}
+
+.card-content > div:first-child {
+  margin-right: 20px;
+}
+
+.proposal-switch {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.switch-container-a,
+.switch-container-b {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.selected-a {
+  background-color: #29bf12;
+  color: white;
+}
+
+.selected-b {
+  background-color: #0081a7;
+  color: white;
+}
+
+.vote-button {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .card-content {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-content > div {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .card-content > div:first-child {
+    margin-right: 0;
+  }
+}
