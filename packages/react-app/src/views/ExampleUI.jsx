@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { utils } from "ethers";
 import { SyncOutlined } from "@ant-design/icons";
 import { Address, Balance, Events } from "../components";
-import ProposalTable from "./ProposalTable";
 
 export default function ExampleUI({
   purpose,
@@ -22,7 +21,6 @@ export default function ExampleUI({
 
   return (
     <div>
-      {/* <ProposalTable tx={tx} writeContracts={writeContracts} /> */}
       {/*
         ⚙️ Here is an example UI that displays and sets the purpose in your smart contract:
       */}

@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { Row, Col } from "antd";
 import { Link } from "react-router-dom";
-import { KhaFaucet, ProposalTable } from "./";
+import { KhaFaucet } from "./";
 import ProposalCard from "../views/ProposalCard";
 
 /**
@@ -12,12 +12,13 @@ import ProposalCard from "../views/ProposalCard";
  * @param {*} readContracts contracts from current chain already pre-loaded using ethers contract module. More here https://docs.ethers.io/v5/api/contract/contract/
  * @returns react component
  **/
-function Home({ yourLocalBalance, readContracts, tx, writeContracts }) {
+function Home({ yourLocalBalance, readContracts, tx, writeContracts, address }) {
+  console.log("Home: account:", address);
   // you can also use hooks locally in your component of choice
   // in this case, let's keep track of 'purpose' variable from our contract
   const [data, setData] = useState([]);
-  console.log("Home writeContracts:", writeContracts);
-  console.log("Home tx:", tx);
+  // console.log("Home writeContracts:", writeContracts);
+  // console.log("Home tx:", tx);
 
   useEffect(() => {
     fetch("http://localhost:3001/proposals")
@@ -40,8 +41,9 @@ function Home({ yourLocalBalance, readContracts, tx, writeContracts }) {
   };
 
   return (
-    <div>
+    <div style={{ paddingBottom: "30px" }}>
       <div style={{ margin: 32 }}>
+        <KhaFaucet readContracts={readContracts} tx={tx} address={address} writeContracts={writeContracts} />
         <Row gutter={[16, 16]}>
           {mapData(data).map((proposal, key) => (
             <Col key={proposal.id} xs={24} sm={24} md={12} lg={8}>
@@ -49,8 +51,6 @@ function Home({ yourLocalBalance, readContracts, tx, writeContracts }) {
             </Col>
           ))}
         </Row>
-        {/* <KhaFaucet /> */}
-        {/* <ProposalTable proposal="" tx={tx} writeContracts={writeContracts} /> */}
       </div>
     </div>
   );

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Switch } from "antd";
-import { ethers } from "ethers";
 import "./Fancy.css";
-import useCustomWallet from "../hooks/useCustomWallet";
-// Add this import at the top of your ProposalCard.jsx file
 
 const { Meta } = Card;
 
 const ProposalCard = ({ proposal, proposalId, tx, writeContracts }) => {
-  console.log("Khazum:", writeContracts.Khazum);
+  // console.log("Khazum:", writeContracts.Khazum);
   //   console.log("ProposalCard tx:", tx);
   //   console.log(proposalId);
   const [option, setOption] = useState(0); // initialize the option state with 0
@@ -109,8 +106,9 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts }) => {
               <p>Minimum Votes: {parseInt(proposal.minimumVotes, 10)}</p>
             </div>
             <div>
-              <p>Votes for Option A: {parseInt(proposal.votesForOptionA, 10)}</p>
-              <p>Votes for Option B: {parseInt(proposal.votesForOptionB, 10)}</p>
+              <p>Votes for Option A: {parseInt(proposal.votesForOptionA, 10) / (10 ** 18).toFixed(2)}</p>
+              <p>Votes for Option B: {parseInt(proposal.votesForOptionB, 10) / (10 ** 18).toFixed(2)}</p>
+
               <p>
                 Status:{" "}
                 <span
@@ -122,7 +120,7 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts }) => {
                         : status === "Closed"
                         ? "#ff9914"
                         : status === "Option A won"
-                        ? "#f07167"
+                        ? "#29bf12"
                         : "#0081a7",
                   }}
                 >
