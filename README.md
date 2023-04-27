@@ -51,17 +51,11 @@ yarn install
 yarn chain
 ```
 
-> 3️⃣ in a second terminal window, you can 🛰 deploy your contract, and create proposals: as Owner:
+> 3️⃣ in a second terminal window, 🛰 deploy your contracts:
 
 ```bash
 cd evolution-DAO
-yarn deploy --reset
-```
-
-You can create proposals by running:
-
-```bash
-yarn create-proposal
+yarn deploy
 ```
 
 > 3️⃣ in a third terminal window, you can call scripts as Ownerstart your 📱 express backend:
@@ -83,6 +77,24 @@ yarn start
 ```
 
 🚨 if you are not deploying to localhost, you will need to run `yarn generate` first and then fund the deployer account. To view account balances, run `yarn account`. You will aslo need to update `hardhat-config.js` with the correct default network.
+
+> On the second terminal, you can run this commands::
+
+**Create a new proposal from Owner account:**
+
+```bash
+yarn create-proposal
+```
+
+**Deploy again your contracts**
+
+```bash
+yarn deploy --reset
+```
+
+Then `CTRL-C` and on your express terminal, press up arrow and run that last command again.
+
+## File location
 
 🔏 Edit your smart contract in `packages/hardhat/contracts`
 📝 Edit your frontend `App.jsx` in `packages/react-app/src`

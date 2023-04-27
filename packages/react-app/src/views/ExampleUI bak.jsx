@@ -18,11 +18,10 @@ export default function ExampleUI({
 }) {
   const [proposalId, setProposalId] = useState("0");
   const [voteOption, setVoteOption] = useState("0");
-  console.log("ExampleUI writeContracts", writeContracts);
 
   return (
     <div>
-      {/* <ProposalTable tx={tx} writeContracts={writeContracts} /> */}
+      <ProposalTable tx={tx} writeContracts={writeContracts} localProvider={localProvider} />
       {/*
         ⚙️ Here is an example UI that displays and sets the purpose in your smart contract:
       */}

@@ -1,9 +1,13 @@
+// Container of Component
+
 import React, { useEffect, useState } from "react";
 import { Row, Col } from "antd";
 import ProposalCard from "../views/ProposalCard";
 
-const ProposalTable = () => {
+const ProposalTable = (tx, writeContracts) => {
   const [data, setData] = useState([]);
+  console.log("ProposalTable writeContracts:", writeContracts);
+  console.log("ProposalTable tx:", tx);
 
   useEffect(() => {
     fetch("http://localhost:3001/proposals")
@@ -12,7 +16,9 @@ const ProposalTable = () => {
   }, []);
 
   const mapData = data => {
-    return data.map(proposal => {
+    return data.map((proposal, key) => {
+      // console.log("Proposal content:", proposal);
+      // console.log("Proposal key:", key);
       return {
         ...proposal,
         proposalDeadline: parseInt(proposal.proposalDeadline, 10),
@@ -25,9 +31,9 @@ const ProposalTable = () => {
 
   return (
     <Row gutter={[16, 16]}>
-      {mapData(data).map(proposal => (
-        <Col key={proposal.id} xs={24} sm={12} md={8} lg={6}>
-          <ProposalCard proposal={proposal} />
+      {mapData(data).map((proposal, key) => (
+        <Col key={proposal.id} xs={24} sm={24} md={12} lg={8}>
+          <ProposalCard proposal={proposal} proposalId={key} tx={tx} writeContracts={writeContracts} />
         </Col>
       ))}
     </Row>

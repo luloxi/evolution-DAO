@@ -10,6 +10,7 @@ async function transferTokens(deployer, totalSupply) {
   // Mint the entire token supply to the faucet contract
   await khaToken.transfer(khaFaucet.address, totalSupply);
   console.log("Faucet's loaded!");
+
   await khaFaucet.setTokenAddress(khaToken.address);
   console.log("Free KhaTokens come and grab!!");
 }

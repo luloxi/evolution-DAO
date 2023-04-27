@@ -67,7 +67,7 @@ contract Khazum is Ownable {
         emit ProposalCreated(proposalId, _title);
     }
 
-    function castVote(uint256 _proposalId, Option _selectedOption) public {
+    function vote(uint256 _proposalId, Option _selectedOption) public {
         require(_proposalId < proposalCounter, "Invalid proposal ID");
         Proposal storage proposal = proposals[_proposalId];
 
@@ -86,7 +86,7 @@ contract Khazum is Ownable {
         uint256 votingPower = khaToken.balanceOf(msg.sender);
         require(votingPower > 0, "Voter has no voting power");
 
-        khaToken.transferFrom(msg.sender, address(this), votingPower);
+        // Remove the khaToken.transferFrom() call
 
         if (_selectedOption == Option.A) {
             proposal.votesForOptionA += votingPower;

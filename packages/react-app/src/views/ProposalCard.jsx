@@ -1,49 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button } from "antd";
+import { Card, Button, Switch } from "antd";
 import { ethers } from "ethers";
-// import KhazumABI from "../../../hardhat/artifacts/contracts/Khazum.sol";
-// import KhazumDeployment from "../../../hardhat/deployments/localhost/Khazum.json";
 import "./Fancy.css";
+import useCustomWallet from "../hooks/useCustomWallet";
+// Add this import at the top of your ProposalCard.jsx file
 
 const { Meta } = Card;
 
-// const provider = new ethers.providers.Web3Provider(window.ethereum);
-// const contractAddress = KhazumDeployment.address; // the address of the deployed contract
-// const contractAbi = KhazumABI; // the ABI of the contract
-// const contract = new ethers.Contract(contractAddress, contractAbi, provider);
-
-const ProposalCard = ({ proposal }) => {
-  //   const handleVoteOptionA = async () => {
-  //     const signer = provider.getSigner();
-  //     const updatedProposal = {
-  //       ...proposal,
-  //       votesForOptionA: proposal.votesForOptionA + 1,
-  //     };
-  //     console.log(`Voted Option A for proposal ${proposal.title}`);
-  //     try {
-  //       const tx = await contract.vote(proposal.id, 0).connect(signer);
-  //       console.log(tx);
-  //       // Call a function to update the proposal in the database or state
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   const handleVoteOptionB = async () => {
-  //     const signer = provider.getSigner();
-  //     const updatedProposal = {
-  //       ...proposal,
-  //       votesForOptionB: proposal.votesForOptionB + 1,
-  //     };
-  //     console.log(`Voted Option B for proposal ${proposal.title}`);
-  //     try {
-  //       const tx = await contract.vote(proposal.id, 1).connect(signer);
-  //       console.log(tx);
-  //       // Call a function to update the proposal in the database or state
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
+const ProposalCard = ({ proposal, proposalId, tx, writeContracts }) => {
+  console.log("Khazum:", writeContracts.Khazum);
+  //   console.log("ProposalCard tx:", tx);
+  //   console.log(proposalId);
+  const [option, setOption] = useState(0); // initialize the option state with 0
 
   const mapProposalStatus = proposal => {
     const now = Date.now() / 1000;
@@ -89,46 +57,80 @@ const ProposalCard = ({ proposal }) => {
   return (
     <Card
       className="proposal-card"
-      actions={
-        [
-          // <Button key="optionA" onClick={handleVoteOptionA}>
-          //   Vote Option A
-          // </Button>,
-          // <Button key="optionB" onClick={handleVoteOptionB}>
-          //   Vote Option B
-          // </Button>,
-        ]
-      }
+      actions={[
+        <div className={`switch-container ${option === 1 ? "switch-container-b" : "switch-container-a"}`}>
+          <span className={`option-label ${option === 0 ? "selected" : ""}`}>A</span>
+          <Switch checked={option === 1} onChange={checked => setOption(checked ? 1 : 0)} />
+          <span className={`option-label ${option === 1 ? "selected" : ""}`}>B</span>
+        </div>,
+        <Button
+          className="vote-button"
+          style={{
+            // marginTop: 8,
+            backgroundColor: option === 0 ? "#29BF12" : option === 1 ? "#0081A7" : "initial",
+            width: "75%", // change the width to 75%
+            fontWeight: "bold", // add a bold font weight
+            height: "40px", // increase the height
+          }}
+          onClick={async () => {
+            const result = tx(writeContracts.Khazum.vote(proposalId, option), update => {
+              console.log("📡 Transaction Update:", update);
+              if (update && (update.status === "confirmed" || update.status === 1)) {
+                console.log(" 🍾 Transaction " + update.hash + " finished!");
+                console.log(
+                  " ⛽️ " +
+                    update.gasUsed +
+                    "/" +
+                    (update.gasLimit || update.gas) +
+                    " @ " +
+                    parseFloat(update.gasPrice) / 1000000000 +
+                    " gwei",
+                );
+              }
+            });
+            console.log("awaiting metamask/web3 confirm result...", result);
+            console.log(await result);
+          }}
+        >
+          {option === 0 ? "Vote Option A" : option === 1 ? "Vote Option B" : "Vote!"}
+        </Button>,
+      ]}
     >
       {proposal && (
         <>
           <Meta title={proposal.title.toString()} description={proposal.description.toString()} />
           <br />
-          <p>
-            Proposal Deadline:{" "}
-            {timeRemaining ? timeRemaining : new Date(proposal.proposalDeadline * 1000).toLocaleString()}
-          </p>
-          <p>Minimum Votes: {parseInt(proposal.minimumVotes, 10)}</p>
-          <p>Votes for Option A: {parseInt(proposal.votesForOptionA, 10)}</p>
-          <p>Votes for Option B: {parseInt(proposal.votesForOptionB, 10)}</p>
-          <p>
-            Status:{" "}
-            <span
-              style={{
-                fontWeight: "bold",
-                color:
-                  status === "Pending"
-                    ? "#29bf12"
-                    : status === "Closed"
-                    ? "#ff9914"
-                    : status === "Option A won"
-                    ? "#f07167"
-                    : "#0081a7",
-              }}
-            >
-              {status}
-            </span>
-          </p>
+          <div className="card-content">
+            <div>
+              <p>
+                Proposal Deadline:{" "}
+                {timeRemaining ? timeRemaining : new Date(proposal.proposalDeadline * 1000).toLocaleString()}
+              </p>
+              <p>Minimum Votes: {parseInt(proposal.minimumVotes, 10)}</p>
+            </div>
+            <div>
+              <p>Votes for Option A: {parseInt(proposal.votesForOptionA, 10)}</p>
+              <p>Votes for Option B: {parseInt(proposal.votesForOptionB, 10)}</p>
+              <p>
+                Status:{" "}
+                <span
+                  style={{
+                    fontWeight: "bold",
+                    color:
+                      status === "Pending"
+                        ? "#29bf12"
+                        : status === "Closed"
+                        ? "#ff9914"
+                        : status === "Option A won"
+                        ? "#f07167"
+                        : "#0081a7",
+                  }}
+                >
+                  {status}
+                </span>
+              </p>
+            </div>
+          </div>
         </>
       )}
     </Card>

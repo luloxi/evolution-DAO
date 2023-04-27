@@ -29,7 +29,7 @@ import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { getRPCPollTime, Transactor, Web3ModalSetup } from "./helpers";
-import { Home, ExampleUI, Hints, Subgraph } from "./views";
+import { Home, ExampleUI, Hints, Subgraph, ProposalTable } from "./views";
 import { useStaticJsonRPC, useGasPrice } from "./hooks";
 
 const { ethers } = require("ethers");
@@ -327,7 +327,13 @@ function App(props) {
       <Switch>
         <Route exact path="/">
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
-          <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
+          {/* <ProposalTable tx={tx} writeContracts={writeContracts} /> */}
+          <Home
+            yourLocalBalance={yourLocalBalance}
+            readContracts={readContracts}
+            writeContracts={writeContracts}
+            tx={tx}
+          />
         </Route>
         <Route exact path="/debug">
           {/*

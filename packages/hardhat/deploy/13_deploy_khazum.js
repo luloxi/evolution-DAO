@@ -15,6 +15,24 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log: true,
   });
 
+  const khazum = await ethers.getContract("Khazum", deployer);
+
+  // First proposal parameters
+  const title = "Alice or Bob?"; // i.e: Best ice-cream flavor
+  const description = "Who is your favorite?"; // Option A is Chocolate, Option B is Strawberry
+  const proposalDurationInMinutes = "3"; // minimum amount of minutes for the proposal
+  const minimumVotes = "1"; // 1, unless you wanna require more than one voter for declaring a winner
+
+  // Create the proposal
+  await khazum.createProposal(
+    title,
+    description,
+    proposalDurationInMinutes,
+    minimumVotes
+  );
+
+  console.log("Proposal created successfully!");
+
   try {
     // Verify contract if not on local chain
     const localChainId = "31337";

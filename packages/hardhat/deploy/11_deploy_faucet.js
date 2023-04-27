@@ -26,10 +26,6 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   } catch (error) {
     console.error("Verification Error =>", error);
   }
-
-  // // Set the token address
-  // const token = await deployments.get("KhaToken");
-  // await faucet.setTokenAddress(token.address);
 };
 
 module.exports.tags = ["KhaFaucet"];
