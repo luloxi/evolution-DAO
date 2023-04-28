@@ -4,7 +4,7 @@ import { useThemeSwitcher } from "react-css-theme-switcher";
 
 export default function ThemeSwitcher() {
   const theme = window.localStorage.getItem("theme");
-  const [isDarkMode, setIsDarkMode] = useState(!(!theme || theme === "light"));
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const { switcher, currentTheme, themes } = useThemeSwitcher();
 
   useEffect(() => {
@@ -13,8 +13,15 @@ export default function ThemeSwitcher() {
 
   const toggleTheme = isChecked => {
     setIsDarkMode(isChecked);
-    switcher({ theme: isChecked ? themes.dark : themes.light });
+    const selectedTheme = isChecked ? themes.dark : themes.light;
+    switcher({ theme: selectedTheme });
   };
+
+  useEffect(() => {
+    // Set the theme based on the initial value of isDarkMode
+    const selectedTheme = isDarkMode ? themes.dark : themes.light;
+    switcher({ theme: selectedTheme });
+  }, [isDarkMode, switcher, themes]);
 
   return (
     <div className="main fade-in" style={{ position: "fixed", right: 8, bottom: 8 }}>
