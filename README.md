@@ -3,7 +3,7 @@
 DAO development learning project that makes different DAOs with increasing difficulty level
 
 - **Khazi** (DAO with one vote per address)
-- **Khazum** (DAO with ERC20 as votes)
+- **Khazum** (DAO with ERC20 as votes, minimum votes and a deadline)
 
 Future development:
 
@@ -14,12 +14,20 @@ Future development:
 
 > Note: Idea was originated by [quaxwell-dapp](https://github.com/luloxi/quaxwell-dapp), a repo I was working on before I started playing with scaffold-eth
 
-## Pending
+## Pending improvements
 
 - Write tests
 - Make a separate branch for Khazi
 - Turn it into a step-by-step lesson
 - Develop new versions with TypeScript
+
+## Index
+
+- [Quick Start](#🏄‍♂️-quick-start)
+- [Deploy to production](#deploy-to-production)
+- [File location](#file-location)
+- [Express](#express)
+- [Troubleshooting](#📚-troubleshooting)
 
 # 🏄‍♂️ Quick Start
 
@@ -82,6 +90,24 @@ yarn deploy --reset
 yarn create-proposal
 ```
 
+## Deploy to production
+
+🌍 You need an RPC key for testnets and production deployments, create an [Alchemy](https://www.alchemy.com/) account and replace the value of `ALCHEMY_KEY = xxx` in `packages/react-app/src/constants.js` with your new key.
+
+📣 Make sure you update the `InfuraID` and `Etherscan` API keys too before deploying and going to production.
+
+🚨📡 To deploy to a public domain, use `yarn surge`. You will need to have a surge account and have the surge CLI installed. There is also the option to deploy to IPFS using `yarn ipfs` and `yarn s3` to deploy to an AWS bucket 🪣 There are scripts in the `packages/react-app/src/scripts` folder to help with this.`
+
+## File location
+
+📝 Frontend base is `App.jsx` in `packages/react-app/src` and
+🦸 Frontend main component is `Home.jsx` in `packages/react-app/src/views`
+🦸 Frontend view files are in `packages/react-app/src/views`
+
+🔏 Smart contract are in `packages/hardhat/contracts`
+🚀 Deployment scripts are in `packages/hardhat/deploy`
+👨‍💻 Other scripts are in `packages/hardhat/scripts`
+
 ## Express
 
 **This will be used in a lesson, to show how to use it, then how to migrate to a better option**
@@ -97,18 +123,6 @@ Then you can access http://localhost:3001/proposals to see the list of proposals
 
 💡 if you use **nodemon** for development, you can use `yarn expressmon` to start monitoring changes on `index.js` file
 
-## File location
-
-📝 Frontend base is `App.jsx` in `packages/react-app/src` and
-🦸 Frontend main component is `Home.jsx` in `packages/react-app/src/views`
-🦸 Frontend view files are in `packages/react-app/src/views`
-
-🔏 Smart contract are in `packages/hardhat/contracts`
-🚀 Deployment scripts are in `packages/hardhat/deploy`
-👨‍💻 Other scripts are in `packages/hardhat/scripts`
-
-🚨📡 To deploy to a public domain, use `yarn surge`. You will need to have a surge account and have the surge CLI installed. There is also the option to deploy to IPFS using `yarn ipfs` and `yarn s3` to deploy to an AWS bucket 🪣 There are scripts in the `packages/react-app/src/scripts` folder to help with this.`
-
 # 📚 Troubleshooting
 
 ## Running the first time
@@ -118,12 +132,6 @@ Can't run any of this commands from your Windows environment? [See HOW-TO-WSL.md
 Don't have yarn to run the commands? [See HOW-TO-YARN.MD](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-YARN.md)
 
 Certain errors during the Quick Start are common, [see HOW-TO-SCAFFOLD-ETH.MD](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-SCAFFOLD-ETH.md)
-
-## Deploy
-
-🌍 You need an RPC key for testnets and production deployments, create an [Alchemy](https://www.alchemy.com/) account and replace the value of `ALCHEMY_KEY = xxx` in `packages/react-app/src/constants.js` with your new key.
-
-📣 Make sure you update the `InfuraID` before you go to production. Huge thanks to [Infura](https://infura.io/) for our special account that fields 7m req/day!
 
 ## Community docs & help
 
