@@ -1,4 +1,4 @@
-# 🏗 evolution-DAO
+# 🐣 evolution-DAO
 
 DAO development learning project that makes different DAOs with increasing difficulty level
 
@@ -9,28 +9,17 @@ Future development:
 
 - **Khazerium** (DAO + ERC20Votes + mint NFT to proposal executor)
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
-
 - **Khazito** (DAO with NFT as votes that invests DAO funds in holder proposed NFTs on a Marketplace)
 - **Khazefi** (DAO with Dynamic NFT as votes that allows withdrawal of ETH and decides where to stake it on execute)
 
-[evolution-DAO is a public good of BuidlGuidl](https://buidlguidl.com/build/0XiixjBqbKqluguYpmFE)
-
 > Note: Idea was originated by [quaxwell-dapp](https://github.com/luloxi/quaxwell-dapp), a repo I was working on before I started playing with scaffold-eth
 
-## Pending changes
+## Pending
 
-- Add functionality to buttons (maybe with the help of update-frontend from hardhat)
-- Make express process the button function
-- Make Khazi a minimal version of Khazum
-- Add ERC20 for votes to Khazum
 - Write tests
-
-## Later changes
-
-- Make a nicer frontend
-- Config docker/package.json to make the express server run on deploy to surge
-- Config express, createProposal and .jsx elements to read dynamically abi and address based on chainId
-- Update frontend dynamically when a new proposal is posted (express?)
+- Make a separate branch for Khazi
+- Turn it into a step-by-step lesson
+- Develop new versions with TypeScript
 
 # 🏄‍♂️ Quick Start
 
@@ -70,15 +59,11 @@ yarn start
 
 📱 Open http://localhost:3000 to see the app
 
+> 🏗 Hint: If you go to http://localhost:3000/debug you can interact directly with contract's functions
+
 🚨 if you are not deploying to localhost, you will need to run `yarn generate` first and then fund the deployer account. To view account balances, run `yarn account`. You will aslo need to update `hardhat-config.js` with the correct default network.
 
-> On the second terminal, you can run this commands::
-
-**Create a new proposal from Owner account:**
-
-```bash
-yarn create-proposal
-```
+> On another terminal, you can run this commands::
 
 **Deploy again your contracts**
 
@@ -86,14 +71,29 @@ yarn create-proposal
 yarn deploy --reset
 ```
 
-## Deprecated
+**Create a new proposal from Owner account:**
 
-> 3️⃣ in another terminal window, you can start your 📱 express backend:
+1. Go to `/packages/hardhat/scripts` and open `createProposal.js` in a text editor
+2. Look for this line at the top of the file `Searchconst khazumContractAddress = require("../deployments/localhost/Khazum.json").address;`
+3. Change the word `localhost` to the network where your contract is deployed
+4. Run this command from the root directory of the repo:
+
+```bash
+yarn create-proposal
+```
+
+## Express
+
+**This will be used in a lesson, to show how to use it, then how to migrate to a better option**
+
+> In a terminal window, you can start your 📱 express backend:
 
 ```bash
 cd evolution-DAO
 yarn express
 ```
+
+Then you can access http://localhost:3001/proposals to see the list of proposals from a REST API
 
 💡 if you use **nodemon** for development, you can use `yarn expressmon` to start monitoring changes on `index.js` file
 
@@ -101,6 +101,7 @@ yarn express
 
 📝 Frontend base is `App.jsx` in `packages/react-app/src` and
 🦸 Frontend main component is `Home.jsx` in `packages/react-app/src/views`
+🦸 Frontend view files are in `packages/react-app/src/views`
 
 🔏 Smart contract are in `packages/hardhat/contracts`
 🚀 Deployment scripts are in `packages/hardhat/deploy`

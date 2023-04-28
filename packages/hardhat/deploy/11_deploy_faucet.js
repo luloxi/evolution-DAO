@@ -13,6 +13,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     from: deployer,
     args: [],
     log: true,
+    waitConfirmations: chainId === localChainId ? 0 : 5,
   });
 
   try {

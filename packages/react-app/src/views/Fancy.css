@@ -1,3 +1,5 @@
+// Card style modifiers
+
 .proposal-card {
   max-width: 800px;
   text-align: center;
@@ -31,97 +33,19 @@
   justify-content: center;
   align-items: center;
   & > * {
-    /* flex-basis: 45%; */
     text-align: center;
-  }
-  & > div:first-child {
-    margin-right: 0;
   }
 }
 
 .proposal-column {
   width: 50%;
   box-sizing: border-box;
-  /* padding: 0 10px; */
 }
+
+// Content style modifiers
 
 .proposal-status {
   text-align: center;
-}
-
-.proposal-switch {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  & > .option-label.selected-a {
-    background-color: #29bf12;
-    color: #ffffff;
-  }
-  & > .option-label.selected-b {
-    background-color: #0081a7;
-    color: #ffffff;
-  }
-}
-
-.switch-container-a,
-.switch-container-b {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  /* margin-bottom: 10px; */
-}
-
-.option-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.2rem;
-  width: 50px;
-  /* height: 50px; */
-  border-radius: 50%;
-  margin: 0 10px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.selected-a {
-  color: #29bf12;
-}
-
-.selected-b {
-  color: #0081a7;
-}
-
-.vote-button {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 300px;
-  font-weight: bold;
-  height: 40px;
-  text-align: center;
-  padding: 0;
-  border-radius: 4px;
-  /* background-color: ${(props) => (props.option === 0 ? "#29BF12" : props.option === 1 ? "#0081A7" : "initial")}; */
-}
-
-.vote-button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.vote-label {
-  text-align: center;
-  font-weight: bold;
-}
-
-.vote-count {
-  text-align: center;
-  font-size: 1.2rem;
-  /* margin-top: 5px; */
 }
 
 .proposal-votes {
@@ -137,4 +61,99 @@
   align-items: center;
   justify-content: center;
   margin: 10px;
+}
+
+// Switch style modifiers
+
+.switch-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+  margin: 0 auto;
+  border-radius: 16px;
+  width: 120px; /* Reduce the width */
+  background-color: #eee;
+}
+
+.option-label {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  padding: 6px 6px; /* Increase the horizontal padding */
+  border-radius: 12px;
+  margin: 0px 6px;
+}
+
+.selected-a {
+  background-color: #f35b04;
+  color: #fff;
+  box-shadow: 0px 0px 10px #f35b04;
+}
+
+.selected-b {
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #0081a7;
+  background-color: #0081a7;
+}
+
+.not-selected-a {
+  color: #f35b04;
+}
+
+.not-selected-b {
+  color: #0081a7;
+}
+
+// Button style modifiers
+
+.ant-btn {
+  /* background-color: #0081a7; */
+  color: #ffffff !important;
+  border: none;
+  font-weight: bold;
+  height: 50px;
+  width: 75%;
+  max-width: 300px;
+}
+
+.ant-btn:hover {
+  background-color: #29bf12;
+  color: #ffffff !important;
+}
+
+.ant-btn:focus,
+.ant-btn:hover,
+.ant-btn:active,
+.ant-btn.active {
+  border-color: transparent;
+  color: #ffffff !important;
+}
+
+.vote-button {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 300px;
+  font-weight: bold;
+  height: 40px;
+  text-align: center;
+  padding: 0;
+  border-radius: 4px;
+  color: #ffffff !important;
+}
+
+.vote-button:hover {
+  mix-blend-mode: overlay;
+}
+
+.vote-label {
+  text-align: center;
+  font-weight: bold;
+}
+
+.vote-count {
+  text-align: center;
+  font-size: 1.2rem;
 }

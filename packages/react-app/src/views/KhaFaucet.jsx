@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Input, Typography, Card } from "antd";
+import React from "react";
+import { Button, Typography, Card } from "antd";
 import { ethers } from "ethers";
 import { useContractReader } from "eth-hooks";
 
@@ -12,7 +12,7 @@ export default function KhaFaucetUI({ tx, writeContracts, readContracts, address
   const yourBalance = useContractReader(readContracts, "KhaToken", "balanceOf", [address]);
 
   const requestTokens = async () => {
-    const requestForTokens = await tx(writeContracts.KhaFaucet.requestTokens(ethers.utils.parseEther("5")));
+    await tx(writeContracts.KhaFaucet.requestTokens(ethers.utils.parseEther("5")));
   };
 
   return (

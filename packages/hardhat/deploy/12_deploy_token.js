@@ -15,9 +15,12 @@ async function transferTokens(deployer, totalSupply) {
   console.log("Free KhaTokens come and grab!!");
 }
 
+const localChainId = "31337";
+
 module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
+  const chainId = await getChainId();
 
   const totalSupply = ethers.utils.parseEther("1000000");
 
@@ -25,7 +28,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     from: deployer,
     args: [totalSupply],
     log: true,
-    waitConfirmations: 1,
+    waitConfirmations: chainId === localChainId ? 0 : 5,
   });
 
   await transferTokens(deployer, totalSupply);
@@ -33,7 +36,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   try {
     // Verify the contract only in production
     const chainId = await getChainId();
-    if (chainId !== "31337") {
+    if (chainId !== localChainId) {
       await run("verify:verify", {
         address: token.address,
         contract: "contracts/KhaToken.sol:KhaToken",

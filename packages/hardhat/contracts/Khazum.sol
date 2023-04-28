@@ -98,15 +98,14 @@ contract Khazum is Ownable {
 
         emit VoteCasted(_proposalId, msg.sender, _selectedOption);
 
-        if (proposal.status == ProposalStatus.PENDING) {
-            if (
-                proposal.votesForOptionA + proposal.votesForOptionB >=
-                proposal.minimumVotes
-            ) {
-                proposal.status = ProposalStatus.CLOSED;
-                emit ProposalStatusChanged(_proposalId, ProposalStatus.CLOSED);
-            }
-        }
+        // if (
+        //     proposal.status == ProposalStatus.PENDING &&
+        //     proposal.votesForOptionA + proposal.votesForOptionB >=
+        //     proposal.minimumVotes
+        // ) {
+        //     proposal.status = ProposalStatus.CLOSED;
+        //     emit ProposalStatusChanged(_proposalId, ProposalStatus.CLOSED);
+        // }
     }
 
     // Function to get proposal details

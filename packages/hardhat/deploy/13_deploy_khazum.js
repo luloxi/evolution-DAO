@@ -2,9 +2,12 @@
 
 const { ethers } = require("hardhat");
 
+const localChainId = "31337";
+
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
+  const chainId = await getChainId();
 
   const khaTokenDeployment = await deployments.get("KhaToken");
   const khaTokenAddress = khaTokenDeployment.address;
@@ -13,30 +16,32 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     from: deployer,
     args: [khaTokenAddress],
     log: true,
+    waitConfirmations: chainId === localChainId ? 0 : 5,
   });
 
   const khazum = await ethers.getContract("Khazum", deployer);
 
   // First proposal parameters
-  const title = "Alice or Bob?"; // i.e: Best ice-cream flavor
-  const description = "Who is your favorite?"; // Option A is Chocolate, Option B is Strawberry
-  const proposalDurationInMinutes = "3"; // minimum amount of minutes for the proposal
-  const minimumVotes = "1"; // 1, unless you wanna require more than one voter for declaring a winner
+  const title = "Who is your favorite?"; // i.e: Best ice-cream flavor
+  const description = "Alice or Bob?"; // Option A is Chocolate, Option B is Strawberry
+  const proposalDurationInMinutes = "3"; // Duration of the proposal in minutes
+  const minimumVotes = "5"; // Minimum amount of votes the proposal should receive to declare a winner
 
-  // Create the proposal
-  await khazum.createProposal(
-    title,
-    description,
-    proposalDurationInMinutes,
-    minimumVotes
-  );
+  // Create a sample proposal if on localhost
+  if (chainId == "31337") {
+    await khazum.createProposal(
+      title,
+      description,
+      proposalDurationInMinutes,
+      minimumVotes
+    );
+  }
 
   console.log("Proposal created successfully!");
 
   try {
     // Verify contract if not on local chain
-    const localChainId = "31337";
-    const chainId = await getChainId();
+
     if (chainId !== localChainId) {
       const khazumDeployment = await deployments.get("Khazum");
       const khazumAddress = khazumDeployment.address;
