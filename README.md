@@ -2,11 +2,13 @@
 
 DAO development learning project that makes different DAOs with increasing difficulty level
 
-- **Khazi** (DAO with one vote per address)
+Current development:
+
 - **Khazum** (DAO with ERC20 as votes, minimum votes and a deadline)
 
 Future development:
 
+- **Khazi** (DAO with one vote per address)
 - **Khazerium** (DAO + ERC20Votes + mint NFT to proposal executor)
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
 - **Khazito** (DAO with NFT as votes that invests DAO funds in holder proposed NFTs on a Marketplace)
@@ -95,9 +97,31 @@ yarn create-proposal
 
 ## Deploy to production
 
-🌍 You need an RPC key for testnets and production deployments, create an [Alchemy](https://www.alchemy.com/) account and replace the value of `ALCHEMY_KEY = xxx` in `packages/react-app/src/constants.js` with your new key.
+### Setting up
 
-📣 Make sure you update the `InfuraID` and `Etherscan` API keys too before deploying and going to production.
+1. 📡 **Set default network**: Edit the **defaultNetwork** in `packages/hardhat/hardhat.config.js`, as well as **targetNetwork** in `packages/react-app/src/App.jsx`, to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/)
+
+2. 🔶 **Infura**: You will need to get an API key from [infura.io](https://www.infura.io/) and paste it in `packages/react-app/src/constants.js` in the variable **INFURA_ID**
+
+3. 🌍 **Alchemy**: You need an RPC key for testnets and production deployments, create an [Alchemy](https://www.alchemy.com/) account, create a node for your desired chain, copy its **API KEY** and paste it in `packages/react-app/src/constants.js` in the variable **ALCHEMY_KEY**
+
+4. 📣 **Etherscan**: Update the API KEY in `packages/hardhat/package.json` file. You can get your [key here](https://etherscan.io/login?cmd=last). Look for the line `"verify": "hardhat etherscan-verify --api-key` and replace the gibberish at the end with your API KEY.
+
+### 📜 Deploying contract
+
+1. 👩‍🚀 Run `yarn account` to see if you have a deployer address
+
+2. 🔐 If you don't have one, run `yarn generate` to create a mnemonic and save it locally for deploying. Mnemonic phrase gets stored in `packages/hardhat/mnemonic.txt`
+
+3. 🛰 Fund your deployer address with its corresponding network gas (run `yarn account` again to view balances and address)
+
+4. 🚀 Run `yarn deploy` to deploy to your public network of choice (😅 wherever you can get ⛽️ gas)
+
+5. 🔬 Inspect the block explorer for the network you deployed to... make sure your contract is there.
+
+6. 👮 Run the `yarn verify --network your_network` command to verify your contracts on Etherscan 🛰
+
+### Deploying website to Surge
 
 🚨📡 To deploy to a public domain, use `yarn surge`. You will need to have a surge account and have the surge CLI installed. There is also the option to deploy to IPFS using `yarn ipfs` and `yarn s3` to deploy to an AWS bucket 🪣 There are scripts in the `packages/react-app/src/scripts` folder to help with this.`
 
