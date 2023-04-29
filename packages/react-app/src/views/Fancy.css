@@ -149,6 +149,14 @@
   font-weight: bold;
 }
 
+.vote-label-a {
+  color: #f35b04;
+}
+
+.vote-label-b {
+  color: #0081a7;
+}
+
 .vote-count {
   text-align: center;
   font-size: 1.2rem;

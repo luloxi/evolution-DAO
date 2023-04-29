@@ -166,13 +166,13 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
               <div className="proposal-content">
                 <div className="proposal-column">
                   <div className="proposal-content">
-                    <p className="vote-label">Votes for Option A:</p>
+                    <p className="vote-label vote-label-a"> Votes for Option A: </p>
                     <p className="vote-count">{optionAVotes}</p>
                   </div>
                 </div>
                 <div className="proposal-column">
                   <div className="proposal-content">
-                    <p className="vote-label">Votes for Option B:</p>
+                    <p className="vote-label vote-label-b">Votes for Option B:</p>
                     <p className="vote-count">{optionBVotes}</p>
                   </div>
                 </div>
