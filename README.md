@@ -99,7 +99,7 @@ yarn create-proposal
 
 ### Setting up
 
-1. 📡 **Set default network**: Edit the **initialNetwork** (after the NETWORK.name-of-your-network) in `packages/hardhat/hardhat.config.js`, as well as **targetNetwork** in `packages/react-app/src/App.jsx`, to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/)
+1. 📡 **Set default network**: Edit the **defaultNetwork** in `packages/hardhat/hardhat.config.js`, as well as **initialNetwork** (replace with network name in NETWORK.network_name) in `packages/react-app/src/App.jsx`, to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/)
 
 2. 🔶 **Infura**: You will need to get an API key from [infura.io](https://www.infura.io/) and paste it in `packages/react-app/src/constants.js` in the variable **INFURA_ID**
 
