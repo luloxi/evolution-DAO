@@ -2,7 +2,7 @@
 
 DAO development learning project that makes different DAOs with increasing difficulty level
 
-Current development:
+Available builds:
 
 - **Khazum** (DAO with ERC20 as votes, minimum votes and a deadline)
 
@@ -18,8 +18,9 @@ Future development:
 
 ## Pending improvements
 
-- Write tests
 - Make a separate branch for Khazi
+- Make each evolution its own branch
+- **alert** on faucet withdraw, create proposal, vote success
 - Turn it into a step-by-step lesson
 - Develop new versions with TypeScript
 
@@ -105,7 +106,7 @@ yarn create-proposal
 
 3. 🌍 **Alchemy**: You need an RPC key for testnets and production deployments, create an [Alchemy](https://www.alchemy.com/) account, create a node for your desired chain, copy its **API KEY** and paste it in `packages/react-app/src/constants.js` in the variable **ALCHEMY_KEY**
 
-4. 📣 **Etherscan**: Update the API KEY in `packages/hardhat/package.json` file. You can get your [key here](https://etherscan.io/login?cmd=last). Look for the line `"verify": "hardhat etherscan-verify --api-key` and replace the gibberish at the end with your API KEY.
+4. 📣 **Etherscan**: Update the API KEY in `packages/react-app/constants.js` file. You can get your [key here](https://etherscan.io/login?cmd=last). Look for the line `"verify": "hardhat etherscan-verify --api-key` and replace the gibberish at the end with your API KEY.
 
 ### 📜 Deploying contract
 
@@ -119,11 +120,11 @@ yarn create-proposal
 
 5. 🔬 Inspect the block explorer for the network you deployed to... make sure your contract is there.
 
-6. 👮 Run the `yarn verify --network your_network` command to verify your contracts on Etherscan 🛰
-
 ### Deploying website to Surge
 
-🚨📡 To deploy to a public domain, use `yarn surge`. You will need to have a surge account and have the surge CLI installed. There is also the option to deploy to IPFS using `yarn ipfs` and `yarn s3` to deploy to an AWS bucket 🪣 There are scripts in the `packages/react-app/src/scripts` folder to help with this.`
+1. 🚨 Run `yarn build` to create a production-ready build of your dApp
+
+2. 📡 To deploy to a public domain, use `yarn surge`. You will need to have a surge account and have the surge CLI installed. There is also the option to deploy to IPFS using `yarn ipfs` and `yarn s3` to deploy to an AWS bucket 🪣 There are scripts in the `packages/react-app/src/scripts` folder to help with this.`
 
 ## File location
 
