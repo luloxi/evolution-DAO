@@ -47,6 +47,12 @@ contract Khazum is Ownable {
         uint256 _proposalDurationInMinutes,
         uint256 _minimumVotes
     ) public {
+        require(
+            _proposalDurationInMinutes > 0,
+            "Proposal duration must be greater than zero"
+        );
+        require(_minimumVotes > 0, "Minimum votes must be greater than zero");
+
         // Create a new proposal
         Proposal memory newProposal;
         newProposal.title = _title;

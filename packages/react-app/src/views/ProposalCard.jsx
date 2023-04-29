@@ -12,24 +12,46 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
   const optionBVotes = Number(proposal.votesForOptionB) / 10 ** 18;
   const hasVotes = optionAVotes > 0 || optionBVotes > 0;
 
-  // Proposal date and time setter, replace with useInterval for a live countdown in a future version
+  // Date and time, and countdown setter.
 
   useEffect(() => {
-    const now = Math.floor(new Date().getTime() / 1000);
     const proposalDeadline = parseInt(proposal.proposalDeadline, 10);
-    if (now >= proposalDeadline) {
-      setTimeRemaining(null);
-    } else {
-      const timer = setInterval(() => {
+
+    const timer = setInterval(() => {
+      const now = Math.floor(new Date().getTime() / 1000);
+
+      if (now >= proposalDeadline) {
+        setTimeRemaining(null);
+        clearInterval(timer);
+      } else {
         const timeRemainingSeconds = proposalDeadline - now;
         const hours = Math.floor(timeRemainingSeconds / 3600);
         const minutes = Math.floor((timeRemainingSeconds % 3600) / 60);
         const seconds = Math.floor(timeRemainingSeconds % 60);
         setTimeRemaining(`${hours}:${minutes}:${seconds}`);
-      }, 1000);
-      return () => clearInterval(timer);
-    }
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, [proposal.proposalDeadline, readContracts.Khazum]);
+
+  // Makig deadline text dynamic
+
+  const deadlineMessage = () => {
+    const now = Math.floor(new Date().getTime() / 1000);
+    const proposalDeadline = parseInt(proposal.proposalDeadline, 10);
+    if (now >= proposalDeadline) {
+      return {
+        message: "Ended on:",
+        color: "#db3a34",
+      };
+    } else {
+      return {
+        message: "Time left:",
+        color: "#29bf12",
+      };
+    }
+  };
 
   // Error handling
 
@@ -152,8 +174,11 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
               <div className="card-content">
                 <div>
                   <p>
-                    <span className="vote-label">Proposal Deadline:</span>
-                    <br /> {timeRemaining ? timeRemaining : new Date(proposal.proposalDeadline * 1000).toLocaleString()}
+                    <span className="vote-label" style={{ color: deadlineMessage().color }}>
+                      {deadlineMessage().message}
+                    </span>
+                    <br />
+                    {timeRemaining ? timeRemaining : new Date(proposal.proposalDeadline * 1000).toLocaleString()}
                   </p>
                   <p>
                     <span className="vote-label">Minimum Votes:</span> {parseInt(proposal.minimumVotes, 10)}

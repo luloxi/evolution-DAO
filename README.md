@@ -49,6 +49,8 @@ yarn install
 yarn chain
 ```
 
+_Optionally you can run `yarn test` to run tests on the contracts and verify everything's working correctly_
+
 > 3️⃣ in a second terminal window, 🛰 deploy your contracts:
 
 ```bash
@@ -84,7 +86,8 @@ yarn deploy --reset
 1. Go to `/packages/hardhat/scripts` and open `createProposal.js` in a text editor
 2. Look for this line at the top of the file `Searchconst khazumContractAddress = require("../deployments/localhost/Khazum.json").address;`
 3. Change the word `localhost` to the network where your contract is deployed
-4. Run this command from the root directory of the repo:
+4. Change the proposal parameters to the content you desire for the proposal.
+5. Run this command from the root directory of the repo:
 
 ```bash
 yarn create-proposal

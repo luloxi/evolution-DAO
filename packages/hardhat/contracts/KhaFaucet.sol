@@ -25,4 +25,8 @@ contract KhaFaucet is Ownable {
         require(address(khaToken) != address(0), "Token address not set");
         return khaToken.balanceOf(address(this));
     }
+
+    function getTokenAddress() public view returns (address) {
+        return address(khaToken);
+    }
 }
