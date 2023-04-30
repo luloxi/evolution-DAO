@@ -136,6 +136,12 @@
   border-color: transparent;
 }
 
+.ant-btn:focus:not(:active),
+.ant-btn:hover:not(:active),
+.ant-btn:active {
+  color: white !important;
+}
+
 .vote-button {
   display: flex;
   justify-content: center;

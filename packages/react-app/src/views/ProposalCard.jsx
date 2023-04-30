@@ -138,11 +138,6 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
             <p className="proposal-status">
               {proposal.status === 0 &&
                 timeRemaining !== null &&
-                optionAVotes + optionBVotes >= proposal.minimumVotes && (
-                  <span style={{ fontWeight: "bold", color: "#29bf12" }}>Open to vote</span>
-                )}
-              {proposal.status === 0 &&
-                timeRemaining !== null &&
                 optionAVotes + optionBVotes < proposal.minimumVotes && (
                   <span style={{ fontWeight: "bold", color: "#29bf12" }}>Open to vote</span>
                 )}
@@ -158,14 +153,13 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
                   {optionAVotes === optionBVotes && optionAVotes + optionBVotes >= proposal.minimumVotes && (
                     <span style={{ fontWeight: "bold", color: "#ff9914" }}>Tie</span>
                   )}
-                  {optionAVotes + optionBVotes < proposal.minimumVotes && (
+                  {hasVotes && optionAVotes + optionBVotes < proposal.minimumVotes && (
                     <span style={{ fontWeight: "bold", color: "#db3a34" }}>Minimum votes not met</span>
                   )}
+                  {!hasVotes && timeRemaining === null && (
+                    <span style={{ fontWeight: "bold", color: "#ff9914" }}>Ignored</span>
+                  )}
                 </>
-              )}
-
-              {proposal.status === 1 && !hasVotes && timeRemaining === null && (
-                <span style={{ fontWeight: "bold", color: "#ff9914" }}>Ignored</span>
               )}
             </p>
           </div>
