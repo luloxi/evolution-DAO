@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 
 enum Option {
     A,
@@ -32,22 +33,27 @@ interface IKhaNft is IERC721 {
     function mint(address recipient) external returns (uint256);
 }
 
-contract Khazerium is Ownable {
+contract Khazerium is Ownable, ERC20Votes {
+    using Counters for Counters.Counter;
+
     event ProposalCreated(uint256 proposalId, string title);
     event VoteCasted(uint256 proposalId, address voter, Option selectedOption);
     event ProposalStatusChanged(uint256 proposalId, ProposalStatus status);
 
     IKhaNft private khaNft;
-    IERC20 private khaToken;
 
     uint256 public proposalCounter; // Counter for proposals
     mapping(uint256 => Proposal) public proposals; // Mapping to store proposals by ID
     mapping(address => mapping(uint256 => bool)) public hasVoted; // Mapping to keep track of voters
     mapping(address => mapping(uint256 => Option)) public voterOption; // Mapping to store the selected option for each voter
 
-    constructor(address _khaTokenAddress, address _khaNftAddress) {
+    constructor(address _khaNftAddress)
+        public
+        ERC20("KhaToken Vote", "KHAVOTE")
+        ERC20Votes()
+        ERC20Permit("KhaToken Vote")
+    {
         khaNft = IKhaNft(_khaNftAddress);
-        khaToken = IERC20(_khaTokenAddress);
     }
 
     function createProposal(
@@ -100,7 +106,7 @@ contract Khazerium is Ownable {
             "Invalid option"
         );
 
-        uint256 votingPower = khaToken.balanceOf(msg.sender);
+        uint256 votingPower = getVotes(msg.sender);
         require(votingPower > 0, "Voter has no voting power");
 
         if (_selectedOption == Option.A) {
