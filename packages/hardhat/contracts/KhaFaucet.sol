@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract KhaFaucet is Ownable {
     IERC20 private khaToken;
 
-    function setTokenAddress(address _khaTokenAddress) public /* onlyOwner */ {
+    function setTokenAddress(address _khaTokenAddress) public onlyOwner {
         khaToken = IERC20(_khaTokenAddress);
     }
 
