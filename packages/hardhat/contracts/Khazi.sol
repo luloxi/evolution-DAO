@@ -9,8 +9,6 @@ contract Khazi {
 
     struct Proposal {
         string title;
-        string description;
-        uint256 proposalDeadline;
         uint256 votesForOptionA;
         uint256 votesForOptionB;
     }
@@ -19,16 +17,10 @@ contract Khazi {
     mapping(address => mapping(uint256 => bool)) public hasVoted;
 
     function createProposal(
-        string memory _title,
-        string memory _description,
-        uint256 _proposalDurationInMinutes
+        string memory _title
     ) public {
         Proposal memory newProposal;
         newProposal.title = _title;
-        newProposal.description = _description;
-        newProposal.proposalDeadline =
-            block.timestamp +
-            (_proposalDurationInMinutes * 1 minutes);
 
         uint256 proposalId = proposalCounter;
         proposals[proposalId] = newProposal;
@@ -40,10 +32,6 @@ contract Khazi {
     function castVote(uint256 _proposalId, bool _selectedOption) public {
         require(_proposalId < proposalCounter, "Invalid proposal ID");
         Proposal storage proposal = proposals[_proposalId];
-        require(
-            block.timestamp < proposal.proposalDeadline,
-            "Proposal has expired"
-        );
         require(!hasVoted[msg.sender][_proposalId], "Already voted");
 
         if (_selectedOption) {
@@ -63,8 +51,6 @@ contract Khazi {
         view
         returns (
             string memory title,
-            string memory description,
-            uint256 proposalDeadline,
             uint256 votesForOptionA,
             uint256 votesForOptionB
         )
@@ -73,8 +59,6 @@ contract Khazi {
         Proposal storage proposal = proposals[_proposalId];
 
         title = proposal.title;
-        description = proposal.description;
-        proposalDeadline = proposal.proposalDeadline;
         votesForOptionA = proposal.votesForOptionA;
         votesForOptionB = proposal.votesForOptionB;
     }
