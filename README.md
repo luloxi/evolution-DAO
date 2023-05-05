@@ -6,10 +6,13 @@ Available builds:
 
 - **Khazum** (DAO with ERC20 as votes, minimum votes and a deadline)
 
-Future development:
+Current development:
 
 - **Khazi** (DAO with one vote per address)
 - **Khazerium** (DAO + ERC20Votes + mint NFT to proposal executor)
+
+Future development:
+
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
 - **Khazito** (DAO with NFT as votes that invests DAO funds in holder proposed NFTs on a Marketplace)
 - **Khazefi** (DAO with Dynamic NFT as votes that allows withdrawal of ETH and decides where to stake it on execute)
