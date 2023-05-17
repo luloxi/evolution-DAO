@@ -4,7 +4,7 @@ const khaziContractAddress =
 
 async function main() {
   // Set up the proposal details
-  const title = "What's your favorite animal?"; // Title of your proposal
+  const title = "Best animal? (A: Alpaca | B: Buffalo)"; // Title of your proposal
 
   // Set up the Khazi contract instance
   const contractAddress = khaziContractAddress;

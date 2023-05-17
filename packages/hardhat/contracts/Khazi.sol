@@ -16,9 +16,7 @@ contract Khazi {
     mapping(uint256 => Proposal) public proposals;
     mapping(address => mapping(uint256 => bool)) public hasVoted;
 
-    function createProposal(
-        string memory _title
-    ) public {
+    function createProposal(string memory _title) public {
         Proposal memory newProposal;
         newProposal.title = _title;
 
@@ -29,12 +27,12 @@ contract Khazi {
         emit ProposalCreated(proposalId, _title);
     }
 
-    function castVote(uint256 _proposalId, bool _selectedOption) public {
+    function vote(uint256 _proposalId, bool _selectedOption) public {
         require(_proposalId < proposalCounter, "Invalid proposal ID");
         Proposal storage proposal = proposals[_proposalId];
         require(!hasVoted[msg.sender][_proposalId], "Already voted");
 
-        if (_selectedOption) {
+        if (_selectedOption == false) {
             proposal.votesForOptionA++;
         } else {
             proposal.votesForOptionB++;

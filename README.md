@@ -4,11 +4,11 @@ DAO development learning project that makes different DAOs with increasing diffi
 
 Available builds:
 
+- **Khazi** (DAO with one vote per address)
 - **Khazum** (DAO with ERC20 as votes, minimum votes and a deadline)
 
 Current development:
 
-- **Khazi** (DAO with one vote per address)
 - **Khazerium** (DAO + ERC20Votes + mint NFT to proposal executor)
 
 Future development:
