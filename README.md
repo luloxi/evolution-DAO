@@ -1,31 +1,26 @@
 # 🐣 evolution-DAO
 
-DAO development learning project that makes different DAOs with increasing difficulty level
+## Khazi Build
+
+Using scaffold-eth, we start with a DAO with one vote per address, and we make it go from Yes/No poll to a custom A/B choice with a deadline.
+
+## Current development
+
+evolution-DAO is a DAO development lesson that makes different DAOs with increasing difficulty
+
+To see notes and other evolution-DAO related data, [click here](https://lulox.notion.site/evolution-DAO-91a60bc9f6c449e6a1f163a380d575b1)
 
 Available builds:
 
 - **Khazi** (DAO with one vote per address)
 - **Khazum** (DAO with ERC20 as votes, minimum votes and a deadline)
 
-Current development:
+Under development:
 
 - **Khazerium** (DAO + ERC20Votes + mint NFT to proposal executor)
-
-Future development:
-
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
 - **Khazito** (DAO with NFT as votes that invests DAO funds in holder proposed NFTs on a Marketplace)
 - **Khazefi** (DAO with Dynamic NFT as votes that allows withdrawal of ETH and decides where to stake it on execute)
-
-> Note: Idea was originated by [quaxwell-dapp](https://github.com/luloxi/quaxwell-dapp), a repo I was working on before I started playing with scaffold-eth
-
-## Pending improvements
-
-- Make a separate branch for Khazi
-- Make each evolution its own branch
-- **alert** on faucet withdraw, create proposal, vote success
-- Turn it into a step-by-step lesson
-- Develop new versions with TypeScript
 
 ## Index
 
@@ -41,10 +36,11 @@ Prerequisites: [Node (v18 LTS)](https://nodejs.org/en/download/) plus [Yarn (v1.
 
 🚨 If you are using a version < v18 you will need to remove `openssl-legacy-provider` from the `start` script in `package.json`
 
-> 1️⃣ clone/fork 🏗 evolution-DAO:
+> 1️⃣ clone/fork 🏗 evolution-DAO and select khazi build:
 
 ```bash
 git clone https://github.com/luloxi/evolution-DAO.git
+git checkout khazi
 ```
 
 > 2️⃣ install and start your 👷‍ Hardhat chain:
