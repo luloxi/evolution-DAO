@@ -42,3 +42,11 @@ Future development:
 ## Pending improvements
 
 You can see current notes on development [here](https://lulox.notion.site/evolution-DAO-91a60bc9f6c449e6a1f163a380d575b1)
+
+# Troubleshooting
+
+Don't have yarn? See [HOW-TO-YARN](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-YARN.md)
+
+Want a good IDE for editing code? See [HOW-TO-VSCODE](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-VSCODE.md)
+
+Maybe purge cache, liberating a port or the openssl error? See [HOW-TO-SCAFFOLD-ETH](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-SCAFFOLD-ETH.md)
