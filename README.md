@@ -2,32 +2,12 @@
 
 ## Khazi Build
 
-Using scaffold-eth, we start with a DAO with one vote per address, and we make it go from Yes/No poll to a custom A/B choice with a deadline.
-
-## Current development
-
-evolution-DAO is a DAO development lesson that makes different DAOs with increasing difficulty
-
-To see notes and other evolution-DAO related data, [click here](https://lulox.notion.site/evolution-DAO-91a60bc9f6c449e6a1f163a380d575b1)
-
-Available builds:
-
-- **Khazi** (DAO with one vote per address)
-- **Khazum** (DAO with ERC20 as votes, minimum votes and a deadline)
-
-Under development:
-
-- **Khazerium** (DAO + ERC20Votes + mint NFT to proposal executor)
-- **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
-- **Khazito** (DAO with NFT as votes that invests DAO funds in holder proposed NFTs on a Marketplace)
-- **Khazefi** (DAO with Dynamic NFT as votes that allows withdrawal of ETH and decides where to stake it on execute)
-
 ## Index
 
 - [Quick Start](#🏄‍♂️-quick-start)
 - [Deploy to production](#deploy-to-production)
 - [File location](#file-location)
-- [Express](#express)
+- [Current development](#current-development)
 - [Troubleshooting](#📚-troubleshooting)
 
 # 🏄‍♂️ Quick Start
@@ -135,20 +115,21 @@ yarn create-proposal
 🚀 Deployment scripts are in `packages/hardhat/deploy`
 👨‍💻 Other scripts are in `packages/hardhat/scripts`
 
-## Express
+# Current development
 
-**This will be used in a lesson, to show how to use it, then how to migrate to a better option**
+To see notes and other evolution-DAO related data, [click here](https://lulox.notion.site/evolution-DAO-91a60bc9f6c449e6a1f163a380d575b1)
 
-> In a terminal window, you can start your 📱 express backend:
+Available builds:
 
-```bash
-cd evolution-DAO
-yarn express
-```
+- **Khazi** (DAO with one vote per address)
+- **Khazum** (DAO with ERC20 as votes, minimum votes and a deadline)
 
-Then you can access http://localhost:3001/proposals to see the list of proposals from a REST API
+Under development:
 
-💡 if you use **nodemon** for development, you can use `yarn expressmon` to start monitoring changes on `index.js` file
+- **Khazerium** (DAO + ERC20Votes + mint NFT to proposal executor)
+- **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
+- **Khazito** (DAO with NFT as votes that invests DAO funds in holder proposed NFTs on a Marketplace)
+- **Khazefi** (DAO with Dynamic NFT as votes that allows withdrawal of ETH and decides where to stake it on execute)
 
 # 📚 Troubleshooting
 

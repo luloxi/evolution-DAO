@@ -4,13 +4,15 @@ const khaziContractAddress =
 
 async function main() {
   // Set up the proposal details
-  const title = "Best animal? (A: Alpaca | B: Buffalo)"; // Title of your proposal
+  const title = "Best animal? (A: Alpaca | B: Buffalo)";
+  const optionA = "Alpaca";
+  const optionB = "Buffalo";
 
-  // Set up the Khazi contract instance
-  const contractAddress = khaziContractAddress;
+  // Khazi contract connection
   const Khazi = await ethers.getContractFactory("Khazi");
-  const khazi = await Khazi.attach(contractAddress);
+  const khazi = await Khazi.attach(khaziContractAddress);
 
+  // Checkpoint 3: Add optionA and optionB as arguments to createProposal
   // Create the proposal
   await khazi.createProposal(title);
 

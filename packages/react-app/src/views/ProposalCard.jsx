@@ -82,7 +82,9 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts }) => {
           <div className="proposal-content">
             <div className="proposal-column">
               <div className="proposal-content">
-                <p className="vote-label vote-label-a">Votes for Option A:</p>
+                <p className="vote-label vote-label-a">
+                  {proposal.optionA ? `Votes for ${proposal.optionA}:` : "Votes for Option A:"}
+                </p>
               </div>
               <div className="proposal-content">
                 <p className="vote-count">{proposal.votesForOptionA}</p>
@@ -90,7 +92,9 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts }) => {
             </div>
             <div className="proposal-column">
               <div className="proposal-content">
-                <p className="vote-label vote-label-b">Votes for Option B:</p>
+                <p className="vote-label vote-label-a">
+                  {proposal.optionB ? `Votes for ${proposal.optionB}:` : "Votes for Option B:"}
+                </p>
               </div>
               <div className="proposal-content">
                 <p className="vote-count">{proposal.votesForOptionB}</p>
