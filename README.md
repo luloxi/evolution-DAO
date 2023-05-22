@@ -52,13 +52,14 @@ Navigate to the Debug Contracts tab and you should see a smart contract displaye
 
 First, you should edit the `struct Proposal` and add two `string` parameters for optionA and optionB.
 
-> You can use `bytes32` instead of `string` for gas efficiency! (can you spot other optimizations in this contract? 🤔)
+> You can use `bytes32` instead of `string` for gas efficiency!
+> (can you spot other optimizations in this contract? 🤔)
 
 Now search for this parts of the code and follow the checkpoint 3 instructions there:
 
 - `event ProposalCreated`
 - `function createProposal`
-- `function getProposal`.
+- `function getProposal`
 
 To finish, go to `packages/hardhat/scripts` and edit `createProposal.js` call to createProposal to account for changes made!
 
@@ -76,17 +77,20 @@ Now search for this parts of the code and follow the checkpoint 4 instructions t
 
 To finish, go to `packages/hardhat/scripts` and edit `createProposal.js` call to createProposal to account for changes made!
 
-Create a new proposal now, you should see an updated frontend card with a deadline now!
+Create a new proposal now, you should see an updated frontend card with a deadline!
 
 ### Goals
 
 [ ] Does you see "Votes for OPTION_NAME" in your frontend when you create a new proposal?
+
 [ ] Does it reject voting beyond the deadline?
 
 ### ⚔️ Side Quests
 
 [ ] If options are an address instead of a string, could it have some onchain utility after a winner is chosen?
+
 [ ] Can you optimize the gas usage of this contract?
+
 [ ] Can you add more conditions to this contract?
 
 ### ⚠️ Test it!
@@ -141,9 +145,12 @@ Now you are ready to run the `yarn verify --network your_network` command to ver
 
 To see current development info [click here](https://lulox.notion.site/evolution-DAO-91a60bc9f6c449e6a1f163a380d575b1)
 
-Available builds:
+Available lessons:
 
 - **Khazi** (DAO with one vote per address)
+
+Available builds:
+
 - **Khazum** (DAO with ERC20 as votes, minimum votes and a deadline)
 
 Under development:
