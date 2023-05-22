@@ -174,3 +174,11 @@ Under development:
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
 - **Khazito** (DAO with NFT as votes that invests DAO funds in holder proposed NFTs on a Marketplace)
 - **Khazefi** (DAO with Dynamic NFT as votes that allows withdrawal of ETH and decides where to stake it on execute)
+
+# Troubleshooting
+
+Don't have yarn? See [HOW-TO-YARN](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-YARN.md)
+
+Want a good IDE for editing code? See [HOW-TO-VSCODE](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-VSCODE.md)
+
+Maybe purge cache, liberating a port or the openssl error? See [HOW-TO-SCAFFOLD-ETH](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-SCAFFOLD-ETH.md)
