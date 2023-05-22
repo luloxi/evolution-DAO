@@ -20,7 +20,7 @@ Pull down the appropriate challenge repo/branch to get started.
 
 ```bash
 git clone https://github.com/luloxi/evolution-DAO.git khazi
-cd evolution-DAO
+cd khazi
 git checkout khazi
 yarn install
 ```
