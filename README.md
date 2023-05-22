@@ -65,6 +65,8 @@ Now search for this parts of the code and follow the checkpoint 3 instructions t
 
 To finish, go to `packages/hardhat/scripts` and edit `createProposal.js` call to createProposal to account for changes made!
 
+> Remember to run `yarn deploy --reset` to deploy the new version of the contract before calling your modified createProposal.js!
+
 Great! Now each option for voting has a string specifying its content! Try calling `yarn create-proposal` to see names on voting options!
 
 ## ⛳️ Checkpoint 4: Adding a deadline ☠️
@@ -73,13 +75,16 @@ First, you should edit the `struct Proposal` and add a `uint256` parameter for *
 
 Now search for this parts of the code and follow the checkpoint 4 instructions there:
 
+- `event ProposalCreated`
 - `function createProposal`
 - `function vote`
 - `function getProposal`
 
 To finish, go to `packages/hardhat/scripts` and edit `createProposal.js` call to createProposal to account for changes made!
 
-Create a new proposal now, you should see an updated frontend card with a deadline!
+> Remember to run `yarn deploy --reset` to deploy the new version of the contract before calling your modified createProposal.js!
+
+Create a new proposal now with `yarn create-proposal`, you should see an updated frontend card with a deadline!
 
 ### 🥅 Goals
 
@@ -150,6 +155,8 @@ Now you are ready to run the `yarn verify --network your_network` command to ver
 **Congratulations on completing Khazi!**
 
 # About evolution-DAO
+
+For info about evolution-DAO, [click here](https://buidlguidl.com/build/0XiixjBqbKqluguYpmFE)
 
 To see current development info [click here](https://lulox.notion.site/evolution-DAO-91a60bc9f6c449e6a1f163a380d575b1)
 
