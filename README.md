@@ -4,7 +4,7 @@ DAO development learning project that makes different DAOs with increasing diffi
 
 ## Lessons available
 
-- **Khazi** (DAO with one vote per address)
+- **Khazi** (DAO with one vote per address) [live version here](https://vote-with-khazi.surge.sh/)
 
 ## ⛳️ Buidl a Minimal Viable DAO 📦 with Khazi 📚
 
