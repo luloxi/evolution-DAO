@@ -4,6 +4,8 @@ evolution-DAO is a DAO development repo for building different DAOs with increas
 
 This branch is for Khazi, the most basic of them all.
 
+See the live version [here](https://vote-with-khazi.surge.sh/)
+
 # 🚩 Khazi: Minimum Viable DAO
 
 We start off with a [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) build for a DAO with one vote per address.
@@ -111,9 +113,11 @@ Now is a good time to run yarn test to run the automated testing function. It wi
 
 🚀 Run `yarn deploy` to deploy your smart contract to a public network (selected in hardhat.config.js)
 
+For `yarn create-proposal` to work on your network, update this line in the script: `const khaziContractAddress = require("../deployments/YOUR_NETWORK/Khazi.json").address;` with your network.
+
 ## Checkpoint 6: 🎚 Frontend 🧘‍♀️
 
-📝 Edit the `targetNetwork` in `App.jsx` (in `packages/react-app/src`) to be the public network where you deployed your smart contract.
+📝 Edit the `initialNetwork` in `App.jsx` (in `packages/react-app/src`) to be the public network where you deployed your smart contract.
 
 💻 View your frontend at [http://localhost:3000/](http://localhost:3000/)
 

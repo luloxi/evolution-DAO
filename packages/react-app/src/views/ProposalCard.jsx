@@ -18,7 +18,7 @@ const ProposalCard = ({ proposal, proposalId, tx, readContracts, writeContracts,
       winnerMessage = "Winner: " + proposal.optionA;
     } else if (proposal.votesForOptionA < proposal.votesForOptionB) {
       winnerMessage = "Winner: " + proposal.optionB;
-    } else if (proposal.votesForOptionA == proposal.votesForOptionB) {
+    } else if (proposal.votesForOptionA === proposal.votesForOptionB) {
       winnerMessage = "Tie";
     }
   }
