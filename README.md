@@ -89,11 +89,15 @@ Create a new proposal now, you should see an updated frontend card with a deadli
 
 ### ⚔️ Side Quests
 
-[ ] If options are an address instead of a string, could it have some onchain utility after a winner is chosen?
+[ ] Can you add more options to this contract?
+
+[ ] Can you add more conditions to this contract?
+
+[ ] Can you make the buttons show the name of the option? Frontend relevant files are in `package/react-app/src/views`
 
 [ ] Can you optimize the gas usage of this contract?
 
-[ ] Can you add more conditions to this contract?
+[ ] If options are an address instead of a string, could it have some onchain utility after a winner is chosen?
 
 ### ⚠️ Test it!
 
