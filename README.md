@@ -79,7 +79,7 @@ To finish, go to `packages/hardhat/scripts` and edit `createProposal.js` call to
 
 Create a new proposal now, you should see an updated frontend card with a deadline!
 
-### Goals
+### 🥅 Goals
 
 [ ] Does you see "Votes for OPTION_NAME" in your frontend when you create a new proposal?
 
