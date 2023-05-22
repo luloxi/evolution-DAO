@@ -49,6 +49,7 @@ function Home({ yourLocalBalance, readContracts, tx, writeContracts, address }) 
                 tx={tx}
                 readContracts={readContracts}
                 writeContracts={writeContracts}
+                address={address}
               />
             </Col>
           ))}

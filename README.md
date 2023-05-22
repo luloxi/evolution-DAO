@@ -1,123 +1,145 @@
-# 🐣 evolution-DAO
+# 🐣 evolution-DAO: Khazi
 
-## Khazi Build
+evolution-DAO is a DAO development repo for building different DAOs with increasing difficulty.
 
-## Index
+This branch is for Khazi, the most basic of them all.
 
-- [Quick Start](#🏄‍♂️-quick-start)
-- [Deploy to production](#deploy-to-production)
-- [File location](#file-location)
-- [Current development](#current-development)
-- [Troubleshooting](#📚-troubleshooting)
+# 🚩 Khazi: Minimum Viable DAO
 
-# 🏄‍♂️ Quick Start
+We start off with a [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) build for a DAO with one vote per address.
 
-Prerequisites: [Node (v18 LTS)](https://nodejs.org/en/download/) plus [Yarn (v1.x)](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
+Following this lesson instructions, you'll build a basic DAO for voting between two options, with name for each option and a deadline for the poll.
 
-🚨 If you are using a version < v18 you will need to remove `openssl-legacy-provider` from the `start` script in `package.json`
+Start by editing the `packages/hardhat/contracts/Khazi.sol` contract. This repo also has solutions (👮🏻 try not to peek!) in the `/solutions` folder, but you will learn more by writing the code yourself!
 
-> 1️⃣ clone/fork 🏗 evolution-DAO and select khazi build:
+## ⛳️ Checkpoint 0: 📦 install 📚
+
+Pull down the appropriate challenge repo/branch to get started.
 
 ```bash
-git clone https://github.com/luloxi/evolution-DAO.git
+git clone https://github.com/luloxi/evolution-DAO.git khazi
+cd evolution-DAO
 git checkout khazi
-```
-
-> 2️⃣ install and start your 👷‍ Hardhat chain:
-
-```bash
-cd evolution-DAO
 yarn install
-yarn chain
 ```
 
-_Optionally you can run `yarn test` to run tests on the contracts and verify everything's working correctly_
+## ⛳️ Checkpoint 1: 🔭 Environment 📺
 
-> 3️⃣ in a second terminal window, 🛰 deploy your contracts:
+You'll have three terminals up for:
 
-```bash
-cd evolution-DAO
-yarn deploy
-```
+1. `yarn start` (react app frontend)
 
-> 3️⃣ in a third terminal window, start your 📱 frontend:
+2. `yarn chain` (hardhat backend)
 
-🚨 if your contracts are not deployed to localhost, you will need to update the default network in `App.jsx` to match your default network in `hardhat-config.js`.
+3. `yarn deploy` (to compile, deploy, and publish your contracts to the frontend)
 
-```bash
-cd evolution-DAO
-yarn start
-```
+4. And also `yarn create-proposal`, for proposal creation. You can use the same terminal as the deploy one, or another one, your call.
 
-📱 Open http://localhost:3000 to see the app
+Call it to see a `proposalCard` appear in the homepage according to `createProposal` script in the `packages/hardhat/scripts` folder.
 
-> 🏗 Hint: If you go to http://localhost:3000/debug you can interact directly with contract's functions
+Navigate to the Debug Contracts tab and you should see a smart contract displayed called `Khazi`.
 
-🚨 if you are not deploying to localhost, you will need to run `yarn generate` first and then fund the deployer account. To view account balances, run `yarn account`. You will aslo need to update `hardhat-config.js` with the correct default network.
+> 👩‍💻 Rerun `yarn deploy` whenever you want to deploy new contracts to the frontend (run `yarn deploy --reset` for a completely fresh deploy if you have made no contract changes).
 
-> On another terminal, you can run this commands::
+## ⛳️ Checkpoint 2: Challenge 🌊
 
-**Deploy again your contracts**
+`Khazi.sol` is an DAO contract where each proposal is a poll that has a title and counts for votes on two nameless options. It only allows one vote per address. To complete this challenge, we're gonna address two issues with this poll:
 
-```bash
-yarn deploy --reset
-```
+- proposal options are nameless
+- proposal has no deadline
 
-**Create a new proposal from Owner account:**
+## ⛳️ Checkpoint 3: Adding names to options 🧑‍🤝‍🧑
 
-1. Go to `/packages/hardhat/scripts` and open `createProposal.js` in a text editor
-2. Look for this line at the top of the file `Searchconst khazumContractAddress = require("../deployments/localhost/Khazum.json").address;`
-3. Change the word `localhost` to the network where your contract is deployed
-4. Change the proposal parameters to the content you desire for the proposal.
-5. Run this command from the root directory of the repo:
+First, you should edit the `struct Proposal` and add two `string` parameters for optionA and optionB.
 
-```bash
-yarn create-proposal
-```
+> You can use `bytes32` instead of `string` for gas efficiency! (can you spot other optimizations in this contract? 🤔)
 
-## Deploy to production
+Now search for this parts of the code and follow the checkpoint 3 instructions there:
 
-### Setting up
+- `event ProposalCreated`
+- `function createProposal`
+- `function getProposal`.
 
-1. 📡 **Set default network**: Edit the **defaultNetwork** in `packages/hardhat/hardhat.config.js`, as well as **initialNetwork** (replace with network name in NETWORK.network_name) in `packages/react-app/src/App.jsx`, to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/)
+To finish, go to `packages/hardhat/scripts` and edit `createProposal.js` call to createProposal to account for changes made!
 
-2. 🔶 **Infura**: You will need to get an API key from [infura.io](https://www.infura.io/) and paste it in `packages/react-app/src/constants.js` in the variable **INFURA_ID**
+Great! Now each option for voting has a string specifying its content! Try calling `yarn create-proposal` to see names on voting options!
 
-3. 🌍 **Alchemy**: You need an RPC key for testnets and production deployments, create an [Alchemy](https://www.alchemy.com/) account, create a node for your desired chain, copy its **API KEY** and paste it in `packages/react-app/src/constants.js` in the variable **ALCHEMY_KEY**
+## ⛳️ Checkpoint 4: Adding a deadline ☠️
 
-4. 📣 **Etherscan**: Update the API KEY in `packages/react-app/constants.js` file. You can get your [key here](https://etherscan.io/login?cmd=last). Look for the line `"verify": "hardhat etherscan-verify --api-key` and replace the gibberish at the end with your API KEY.
+First, you should edit the `struct Proposal` and add a `uint256` parameter for **deadline**
 
-### 📜 Deploying contract
+Now search for this parts of the code and follow the checkpoint 4 instructions there:
 
-1. 👩‍🚀 Run `yarn account` to see if you have a deployer address
+- `function createProposal`
+- `function vote`
+- `function getProposal`
 
-2. 🔐 If you don't have one, run `yarn generate` to create a mnemonic and save it locally for deploying. Mnemonic phrase gets stored in `packages/hardhat/mnemonic.txt`
+To finish, go to `packages/hardhat/scripts` and edit `createProposal.js` call to createProposal to account for changes made!
 
-3. 🛰 Fund your deployer address with its corresponding network gas (run `yarn account` again to view balances and address)
+Create a new proposal now, you should see an updated frontend card with a deadline now!
 
-4. 🚀 Run `yarn deploy` to deploy to your public network of choice (😅 wherever you can get ⛽️ gas)
+### Goals
 
-5. 🔬 Inspect the block explorer for the network you deployed to... make sure your contract is there.
+[ ] Does you see "Votes for OPTION_NAME" in your frontend when you create a new proposal?
+[ ] Does it reject voting beyond the deadline?
 
-### Deploying website to Surge
+### ⚔️ Side Quests
 
-1. 🚨 Run `yarn build` to create a production-ready build of your dApp
+[ ] If options are an address instead of a string, could it have some onchain utility after a winner is chosen?
+[ ] Can you optimize the gas usage of this contract?
+[ ] Can you add more conditions to this contract?
 
-2. 📡 To deploy to a public domain, use `yarn surge`. You will need to have a surge account and have the surge CLI installed. There is also the option to deploy to IPFS using `yarn ipfs` and `yarn s3` to deploy to an AWS bucket 🪣 There are scripts in the `packages/react-app/src/scripts` folder to help with this.`
+### ⚠️ Test it!
 
-## File location
+Now is a good time to run yarn test to run the automated testing function. It will test that you hit the core checkpoints. You are looking for all green checkmarks and passing tests!
 
-📝 Frontend base is `App.jsx` in `packages/react-app/src` and
-🦸 Frontend main component is `Home.jsx` in `packages/react-app/src/views`
-🦸 Frontend view files are in `packages/react-app/src/views`
+> If you used bytes32, it might fail a few tests
 
-🔏 Smart contract are in `packages/hardhat/contracts`
-🚀 Deployment scripts are in `packages/hardhat/deploy`
-👨‍💻 Other scripts are in `packages/hardhat/scripts`
+## Checkpoint 5: 🚢 Ship it 🚁
 
-# Current development
+📡 Edit the `defaultNetwork` to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/) in `packages/hardhat/hardhat.config.js`
 
-To see notes and other evolution-DAO related data, [click here](https://lulox.notion.site/evolution-DAO-91a60bc9f6c449e6a1f163a380d575b1)
+👩‍🚀 You will want to run `yarn account` to see if you have a **deployer address**
+
+🔐 If you don't have one, run `yarn generate` to create a mnemonic and save it locally for deploying.
+
+⛽️ You will need to send ETH to your **deployer address** with your wallet.
+
+🚀 Run `yarn deploy` to deploy your smart contract to a public network (selected in hardhat.config.js)
+
+## Checkpoint 6: 🎚 Frontend 🧘‍♀️
+
+📝 Edit the `targetNetwork` in `App.jsx` (in `packages/react-app/src`) to be the public network where you deployed your smart contract.
+
+💻 View your frontend at [http://localhost:3000/](http://localhost:3000/)
+
+📡 When you are ready to ship the frontend app...
+
+📦 Run `yarn build` to package up your frontend.
+
+💽 Upload your app to surge with `yarn surge` (you could also `yarn s3` or maybe even `yarn ipfs`?)
+
+😬 Windows users beware! You may have to change the surge code in `packages/react-app/package.json` to just `"surge": "surge ./build"`,
+
+⚙ If you get a permissions error `yarn surge` again until you get a unique URL, or customize it in the command line.
+
+🚔 Traffic to your url might break the [Infura](https://www.infura.io/) rate limit, edit your key: `constants.js` in `packages/ract-app/src`.
+
+## Checkpoint 7: 📜 Contract Verification
+
+Update the api-key in `packages/hardhat/package.json` file. You can get your key [here](https://etherscan.io/login?cmd=last).
+
+![Image](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
+
+Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
+
+💬 Problems, questions, comments on the stack? Post them to the [🏗 scaffold-eth developers chat](https://t.me/joinchat/F7nCRK3kI93PoCOk)
+
+**Congratulations on completing Khazi!**
+
+# About evolution-DAO
+
+To see current development info [click here](https://lulox.notion.site/evolution-DAO-91a60bc9f6c449e6a1f163a380d575b1)
 
 Available builds:
 
@@ -130,19 +152,3 @@ Under development:
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
 - **Khazito** (DAO with NFT as votes that invests DAO funds in holder proposed NFTs on a Marketplace)
 - **Khazefi** (DAO with Dynamic NFT as votes that allows withdrawal of ETH and decides where to stake it on execute)
-
-# 📚 Troubleshooting
-
-## Running the first time
-
-Can't run any of this commands from your Windows environment? [See HOW-TO-WSL.md](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-WSL.md)
-
-Don't have yarn to run the commands? [See HOW-TO-YARN.MD](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-YARN.md)
-
-Certain errors during the Quick Start are common, [see HOW-TO-SCAFFOLD-ETH.MD](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-SCAFFOLD-ETH.md)
-
-## Community docs & help
-
-Documentation, tutorials, challenges, and many more resources, visit: [docs.scaffoldeth.io](https://docs.scaffoldeth.io)
-
-Join the telegram [support chat 💬](https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA) or buidlguidl [discord](https://discord.gg/pRsr6rwG) to ask questions and find others building with 🏗 scaffold-eth!

@@ -5,8 +5,8 @@ contract Khazi {
     event ProposalCreated(
         uint256 proposalId,
         string title,
-        bytes32 optionA,
-        bytes32 optionB,
+        string optionA,
+        string optionB,
         uint256 deadline
     );
     event VoteCasted(uint256 proposalId, address voter, bool selectedOption);
@@ -15,27 +15,30 @@ contract Khazi {
 
     struct Proposal {
         string title;
-        bytes32 optionA;
-        bytes32 optionB;
+        string optionA;
+        string optionB;
         uint256 deadline;
         uint256 votesForOptionA;
         uint256 votesForOptionB;
     }
 
     mapping(uint256 => Proposal) public proposals;
-    mapping(address => mapping(uint256 => bool)) public hasVoted;
+    mapping(address => mapping(uint256 => bool)) public _hasVoted;
 
     function createProposal(
         string memory _title,
-        bytes32 _optionA,
-        bytes32 _optionB,
-        uint256 _hoursUntilDeadline
+        string memory _optionA,
+        string memory _optionB,
+        uint256 _minutesUntilDeadline
     ) public {
         Proposal memory newProposal;
         newProposal.title = _title;
         newProposal.optionA = _optionA;
         newProposal.optionB = _optionB;
-        newProposal.deadline = block.timestamp + _hoursUntilDeadline * 1 hours;
+        newProposal.deadline =
+            block.timestamp +
+            _minutesUntilDeadline *
+            1 minutes;
 
         uint256 proposalId = proposalCounter;
         proposals[proposalId] = newProposal;
@@ -53,7 +56,7 @@ contract Khazi {
     function vote(uint256 _proposalId, bool _selectedOption) public {
         require(_proposalId < proposalCounter, "Invalid proposal ID");
         Proposal storage proposal = proposals[_proposalId];
-        require(!hasVoted[msg.sender][_proposalId], "Already voted");
+        require(!_hasVoted[msg.sender][_proposalId], "Already voted");
         require(block.timestamp < proposal.deadline, "Voting period has ended");
 
         if (_selectedOption == false) {
@@ -62,7 +65,7 @@ contract Khazi {
             proposal.votesForOptionB++;
         }
 
-        hasVoted[msg.sender][_proposalId] = true;
+        _hasVoted[msg.sender][_proposalId] = true;
         emit VoteCasted(_proposalId, msg.sender, _selectedOption);
     }
 
@@ -73,8 +76,8 @@ contract Khazi {
         view
         returns (
             string memory title,
-            bytes32 optionA,
-            bytes32 optionB,
+            string memory optionA,
+            string memory optionB,
             uint256 deadline,
             uint256 votesForOptionA,
             uint256 votesForOptionB
@@ -93,5 +96,12 @@ contract Khazi {
 
     function getProposalCount() public view returns (uint256) {
         return proposalCounter;
+    }
+
+    function hasVoted(
+        uint256 _proposalId,
+        address _voter
+    ) public view returns (bool) {
+        return _hasVoted[_voter][_proposalId];
     }
 }

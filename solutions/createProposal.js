@@ -4,7 +4,7 @@ const khaziContractAddress =
 
 async function main() {
   // Set up the proposal details
-  const title = "Best animal? (A: Alpaca | B: Buffalo)"; // You can make title shorter
+  const title = "Best animal?"; // You can make title shorter
   const optionA = "Alpaca";
   const optionB = "Buffalo";
   const deadline = "2"; // Number of minutes
@@ -16,7 +16,7 @@ async function main() {
   // Checkpoint 3: Add optionA and optionB as arguments to createProposal
   // Checkpoint 4: Add deadline as argument to createProposal
   // Create the proposal
-  await khazi.createProposal(title);
+  await khazi.createProposal(title, optionA, optionB, deadline);
 
   console.log("Proposal created successfully!");
 }
