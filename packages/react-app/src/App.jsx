@@ -4,7 +4,7 @@ import "antd/dist/antd.css";
 import {
   useBalance,
   useContractLoader,
-  useContractReader,
+  // useContractReader,
   // useOnBlock,
   useUserProviderAndSigner,
 } from "eth-hooks";
