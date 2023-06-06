@@ -37,7 +37,7 @@ You'll have three terminals up for:
 
 4. And also `yarn create-proposal`, for proposal creation. You can use the same terminal as the deploy one, or another one, your call.
 
-Call it to see a `proposalCard` appear in the homepage according to `createProposal` script in the `packages/hardhat/scripts` folder.
+Run `yarn create-proposal` to see a `proposalCard` appear in the homepage according to `createProposal.js` script in the `packages/hardhat/scripts` folder.
 
 Navigate to the Debug Contracts tab and you should see a smart contract displayed called `Khazi`.
 
