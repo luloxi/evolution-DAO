@@ -12,7 +12,7 @@ We start off with a [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)
 
 Following this lesson instructions, you'll build a basic DAO for voting between two options, with name for each option and a deadline for the poll.
 
-Start by editing the `packages/hardhat/contracts/Khazi.sol` contract. This repo also has solutions (👮🏻 try not to peek!) in the `/solutions` folder, but you will learn more by writing the code yourself!
+Start by editing the `packages/hardhat/contracts/Khazi.sol` contract. This repo also has solutions (👮🏻 try not to peek!) in the `/solution` folder, but you will learn more by writing the code yourself!
 
 ## ⛳️ Checkpoint 0: 📦 install 📚
 
