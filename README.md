@@ -1,6 +1,8 @@
 # 🐣 evolution-DAO
 
-DAO development learning project that makes different DAOs with increasing difficulty level
+Decentralized Autonomous Organizations (DAOs) are self-governing entities that operate on the blockchain. They are designed to operate without a central authority and rely on smart contracts to make decisions.
+
+evolution-DAO is a DAO development repo for building different DAOs with increasing difficulty.
 
 # Lessons available
 
