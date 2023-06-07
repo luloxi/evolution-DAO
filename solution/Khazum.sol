@@ -14,12 +14,12 @@ enum Option {
 struct Proposal {
     string title;
     uint256 proposalDeadline;
+    uint256 minimumVotes;
     uint256 votesForOptionA;
     uint256 votesForOptionB;
 }
 
 contract Khazum is Ownable {
-    // Checkpoint 3: In ProposalCreated, include minimumVotes as a parameter of the same type as in the Proposal struct
     event ProposalCreated(uint256 proposalId, string title);
     event VoteCasted(uint256 proposalId, address voter, Option selectedOption);
 
@@ -34,10 +34,6 @@ contract Khazum is Ownable {
         khaToken = IERC20(_khaTokenAddress);
     }
 
-    // Checkpoint 3: Edit createProposal to:
-    // - Take _minimumVotes as a parameter
-    // - Add _minimumVotes as an atribute for the proposal (as newProposal.title does for title)
-    // - Add _minimumVotes as an arguments to emit ProposalCreated
     function createProposal(string memory _title, uint256 _proposalDurationInMinutes, uint256 _minimumVotes) public {
         require(_proposalDurationInMinutes > 0, "Proposal duration must be greater than zero");
         require(_minimumVotes > 0, "Minimum votes must be greater than zero");
@@ -46,6 +42,7 @@ contract Khazum is Ownable {
         Proposal memory newProposal;
         newProposal.title = _title;
         newProposal.proposalDeadline = block.timestamp + (_proposalDurationInMinutes * 1 minutes);
+        newProposal.minimumVotes = _minimumVotes;
 
         // Add the new proposal to the proposals mapping
         uint256 proposalId = proposalCounter;
@@ -77,18 +74,22 @@ contract Khazum is Ownable {
         emit VoteCasted(_proposalId, msg.sender, _selectedOption);
     }
 
-    // Checkpoint 3: Edit getProposal to:
-    // - return minimumVotes from the proposal
-    // Hint: remember to add it to returns in the function header
     function getProposal(uint256 _proposalId)
         public
         view
-        returns (string memory title, uint256 proposalDeadline, uint256 votesForOptionA, uint256 votesForOptionB)
+        returns (
+            string memory title,
+            uint256 proposalDeadline,
+            uint256 minimumVotes,
+            uint256 votesForOptionA,
+            uint256 votesForOptionB
+        )
     {
         Proposal storage proposal = proposals[_proposalId];
 
         title = proposal.title;
         proposalDeadline = proposal.proposalDeadline;
+        minimumVotes = proposal.minimumVotes;
         votesForOptionA = proposal.votesForOptionA;
         votesForOptionB = proposal.votesForOptionB;
     }

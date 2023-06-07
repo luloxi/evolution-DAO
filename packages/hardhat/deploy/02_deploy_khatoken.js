@@ -12,7 +12,7 @@ async function transferTokens(deployer, totalSupply) {
   console.log("Faucet's loaded!");
 
   await khaFaucet.setTokenAddress(khaToken.address);
-  console.log("Free KhaTokens come and grab!!");
+  console.log("Set KhaTokens as the faucet's free tokens!!");
 }
 
 const localChainId = "31337";

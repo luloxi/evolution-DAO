@@ -1,168 +1,165 @@
-# 🐣 evolution-DAO
+# 🐣 evolution-DAO: Khazum
 
-DAO development learning project that makes different DAOs with increasing difficulty level
+evolution-DAO is a DAO development repo for building different DAOs with increasing difficulty.
 
-Available builds:
+This branch is for Khazum, the next step in difficulty after Khazi.
 
-- **Khazum** (DAO with ERC20 as votes, minimum votes and a deadline)
+See the live version [here]()
+
+# 🚩 Khazum: Simple DAO
+
+We start off with a [Minimum Viable DAO](https://github.com/luloxi/evolution-DAO/tree/khazi) build using the [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) framework. It's a DAO for voting between two options, with a name for each option and a deadline for the poll.
+
+Following this lesson instructions, you'll build a DAO with ERC20 tokens as votes, with a minimum amount of tokens to vote.
+
+Start by editing the `packages/hardhat/contracts/Khazum.sol` contract. This repo also has solutions (👮🏻 try not to peek!) in the `/solution` folder, but you will learn more by writing the code yourself!
+
+## ⛳️ Checkpoint 0: 📦 install 📚
+
+Pull down the appropriate challenge repo/branch to get started.
+
+```bash
+git clone https://github.com/luloxi/evolution-DAO.git khazum
+cd khazum
+git checkout khazum
+yarn install
+```
+
+## ⛳️ Checkpoint 1: 🔭 Environment 📺
+
+You'll have three terminals up for:
+
+1. `yarn start` (react app frontend)
+
+2. `yarn chain` (hardhat backend)
+
+3. `yarn deploy --reset` (to compile, deploy, and publish your contracts to the frontend)
+
+4. And also `yarn create-proposal`, for proposal creation. You can use the same terminal as the deploy one, or another one, your call.
+
+Run `yarn create-proposal` to see a `proposalCard` appear in the homepage according to `createProposal.js` script in the `packages/hardhat/scripts` folder.
+
+Navigate to the Debug Contracts tab and you should see a smart contract displayed called `Khazi`.
+
+> 👩‍💻 We don't use `yarn deploy` without `--reset` to prevent errors on deploying a fresh new version of faucet, token and DAO contracts.
+
+## ⛳️ Checkpoint 2: Challenge 🌊
+
+`Khazum.sol` starts as a DAO contract where each proposal has a title, a deadline, and counters for votes on two nameless options. It takes ERC20 tokens as votes, in contrast to [Khazi.sol](https://github.com/luloxi/evolution-DAO/blob/khazi/packages/hardhat/contracts/Khazi.sol) that takes one vote per address (Hint: compare with Khazum.sol and spot how it's implemented).
+
+To complete this challenge, we're gonna address two issues with this poll:
+
+- no minimum votes is specified to determine a winner
+- nothing is done with the result after poll is closed
+
+## ⛳️ Checkpoint 3: Adding minimum votes to determine a winner 🧑‍🤝‍🧑
+
+First, you should edit the `struct Proposal` and add a `uint256` parameter for minimumVotes.
+
+> (Is there a better way of storing those uint for gas optimization? 🤔)
+
+Now search for this parts of the code and follow the checkpoint 3 instructions there:
+
+- `event ProposalCreated`
+- `function createProposal`
+- `function getProposal`
+
+To finish, go to `packages/hardhat/scripts` and edit `createProposal.js` call to createProposal to account for changes made!
+
+> Remember to run `yarn deploy --reset` to deploy the new version of the contract before calling your modified createProposal.js!
+
+Great! Now each proposal should meet a minimum amount of votes to determine a winner! Try calling `yarn create-proposal` to see it in action!
+
+## ⛳️ Checkpoint 4: Adding an execution after deadline ☠️
+
+ToDo: Write an execution checkpoint, maybe including an address for each option in struct and taking a simple decision after deadline is met (if minimumVotes were met as well)
+
+### 🥅 Goals
+
+[ ] Does the proposal card display "Minimum votes not met" if there were some votes but not enough?
+
+### ⚔️ Side Quests
+
+[ ] Can you do something different on execution? Maybe more variables in the proposal struct help
+
+[ ] Can you turn the faucet into a token vending machine?
+
+[ ] Can you make the frontend nicer? Frontend relevant files are in `package/react-app/src/views`
+
+[ ] Can you optimize the gas usage of this contract?
+
+### ⚠️ Test it!
+
+Now is a good time to run yarn test to run the automated testing function. It will test that you hit the core checkpoints. You are looking for all green checkmarks and passing tests!
+
+> If you used bytes32, it might fail a few tests
+
+## Checkpoint 5: 🚢 Ship it 🚁
+
+📡 Edit the `defaultNetwork` to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/) in `packages/hardhat/hardhat.config.js`
+
+👩‍🚀 You will want to run `yarn account` to see if you have a **deployer address**
+
+🔐 If you don't have one, run `yarn generate` to create a mnemonic and save it locally for deploying.
+
+⛽️ You will need to send ETH to your **deployer address** with your wallet.
+
+🚀 Run `yarn deploy` to deploy your smart contract to a public network (selected in hardhat.config.js)
+
+For `yarn create-proposal` to work on your network, update this line in the script: `const khaziContractAddress = require("../deployments/YOUR_NETWORK/Khazi.json").address;` with your network.
+
+## Checkpoint 6: 🎚 Frontend 🧘‍♀️
+
+📝 Edit the `initialNetwork` in `App.jsx` (in `packages/react-app/src`) to be the public network where you deployed your smart contract.
+
+💻 View your frontend at [http://localhost:3000/](http://localhost:3000/)
+
+📡 When you are ready to ship the frontend app...
+
+📦 Run `yarn build` to package up your frontend.
+
+💽 Upload your app to surge with `yarn surge` (you could also `yarn s3` or maybe even `yarn ipfs`?)
+
+😬 Windows users beware! You may have to change the surge code in `packages/react-app/package.json` to just `"surge": "surge ./build"`,
+
+⚙ If you get a permissions error `yarn surge` again until you get a unique URL, or customize it in the command line.
+
+🚔 Traffic to your url might break the [Infura](https://www.infura.io/) rate limit, edit your key: `constants.js` in `packages/ract-app/src`.
+
+## Checkpoint 7: 📜 Contract Verification
+
+Update the api-key in `packages/hardhat/package.json` file. You can get your key [here](https://etherscan.io/login?cmd=last).
+
+![Image](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
+
+Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
+
+💬 Problems, questions, comments on the stack? Post them to the [🏗 scaffold-eth developers chat](https://t.me/joinchat/F7nCRK3kI93PoCOk)
+
+**Congratulations on completing Khazi!**
+
+# About evolution-DAO
+
+For info about evolution-DAO, [click here](https://buidlguidl.com/build/0XiixjBqbKqluguYpmFE)
+
+To see current development info [click here](https://lulox.notion.site/evolution-DAO-91a60bc9f6c449e6a1f163a380d575b1)
+
+Available lessons:
+
+- **Khazi** (DAO with one vote per address, named options and a deadline)
+- **Khazum** (DAO with ERC20 as votes, minimum votes and execution after deadline)
 
 Future development:
 
-- **Khazi** (DAO with one vote per address)
 - **Khazerium** (DAO + ERC20Votes + mint NFT to proposal executor)
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
 - **Khazito** (DAO with NFT as votes that invests DAO funds in holder proposed NFTs on a Marketplace)
 - **Khazefi** (DAO with Dynamic NFT as votes that allows withdrawal of ETH and decides where to stake it on execute)
 
-> Note: Idea was originated by [quaxwell-dapp](https://github.com/luloxi/quaxwell-dapp), a repo I was working on before I started playing with scaffold-eth
+# Troubleshooting
 
-## Pending improvements
+Don't have yarn? See [HOW-TO-YARN](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-YARN.md)
 
-- Make a separate branch for Khazi
-- Make each evolution its own branch
-- **alert** on faucet withdraw, create proposal, vote success
-- Turn it into a step-by-step lesson
-- Develop new versions with TypeScript
+Want a good IDE for editing code? See [HOW-TO-VSCODE](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-VSCODE.md)
 
-## Index
-
-- [Quick Start](#🏄‍♂️-quick-start)
-- [Deploy to production](#deploy-to-production)
-- [File location](#file-location)
-- [Express](#express)
-- [Troubleshooting](#📚-troubleshooting)
-
-# 🏄‍♂️ Quick Start
-
-Prerequisites: [Node (v18 LTS)](https://nodejs.org/en/download/) plus [Yarn (v1.x)](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
-
-🚨 If you are using a version < v18 you will need to remove `openssl-legacy-provider` from the `start` script in `package.json`
-
-> 1️⃣ clone/fork 🏗 evolution-DAO:
-
-```bash
-git clone https://github.com/luloxi/evolution-DAO.git
-```
-
-> 2️⃣ install and start your 👷‍ Hardhat chain:
-
-```bash
-cd evolution-DAO
-yarn install
-yarn chain
-```
-
-_Optionally you can run `yarn test` to run tests on the contracts and verify everything's working correctly_
-
-> 3️⃣ in a second terminal window, 🛰 deploy your contracts:
-
-```bash
-cd evolution-DAO
-yarn deploy
-```
-
-> 3️⃣ in a third terminal window, start your 📱 frontend:
-
-🚨 if your contracts are not deployed to localhost, you will need to update the default network in `App.jsx` to match your default network in `hardhat-config.js`.
-
-```bash
-cd evolution-DAO
-yarn start
-```
-
-📱 Open http://localhost:3000 to see the app
-
-> 🏗 Hint: If you go to http://localhost:3000/debug you can interact directly with contract's functions
-
-🚨 if you are not deploying to localhost, you will need to run `yarn generate` first and then fund the deployer account. To view account balances, run `yarn account`. You will aslo need to update `hardhat-config.js` with the correct default network.
-
-> On another terminal, you can run this commands::
-
-**Deploy again your contracts**
-
-```bash
-yarn deploy --reset
-```
-
-**Create a new proposal from Owner account:**
-
-1. Go to `/packages/hardhat/scripts` and open `createProposal.js` in a text editor
-2. Look for this line at the top of the file `Searchconst khazumContractAddress = require("../deployments/localhost/Khazum.json").address;`
-3. Change the word `localhost` to the network where your contract is deployed
-4. Change the proposal parameters to the content you desire for the proposal.
-5. Run this command from the root directory of the repo:
-
-```bash
-yarn create-proposal
-```
-
-## Deploy to production
-
-### Setting up
-
-1. 📡 **Set default network**: Edit the **defaultNetwork** in `packages/hardhat/hardhat.config.js`, as well as **initialNetwork** (replace with network name in NETWORK.network_name) in `packages/react-app/src/App.jsx`, to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/)
-
-2. 🔶 **Infura**: You will need to get an API key from [infura.io](https://www.infura.io/) and paste it in `packages/react-app/src/constants.js` in the variable **INFURA_ID**
-
-3. 🌍 **Alchemy**: You need an RPC key for testnets and production deployments, create an [Alchemy](https://www.alchemy.com/) account, create a node for your desired chain, copy its **API KEY** and paste it in `packages/react-app/src/constants.js` in the variable **ALCHEMY_KEY**
-
-4. 📣 **Etherscan**: Update the API KEY in `packages/react-app/constants.js` file. You can get your [key here](https://etherscan.io/login?cmd=last). Look for the line `"verify": "hardhat etherscan-verify --api-key` and replace the gibberish at the end with your API KEY.
-
-### 📜 Deploying contract
-
-1. 👩‍🚀 Run `yarn account` to see if you have a deployer address
-
-2. 🔐 If you don't have one, run `yarn generate` to create a mnemonic and save it locally for deploying. Mnemonic phrase gets stored in `packages/hardhat/mnemonic.txt`
-
-3. 🛰 Fund your deployer address with its corresponding network gas (run `yarn account` again to view balances and address)
-
-4. 🚀 Run `yarn deploy` to deploy to your public network of choice (😅 wherever you can get ⛽️ gas)
-
-5. 🔬 Inspect the block explorer for the network you deployed to... make sure your contract is there.
-
-### Deploying website to Surge
-
-1. 🚨 Run `yarn build` to create a production-ready build of your dApp
-
-2. 📡 To deploy to a public domain, use `yarn surge`. You will need to have a surge account and have the surge CLI installed. There is also the option to deploy to IPFS using `yarn ipfs` and `yarn s3` to deploy to an AWS bucket 🪣 There are scripts in the `packages/react-app/src/scripts` folder to help with this.`
-
-## File location
-
-📝 Frontend base is `App.jsx` in `packages/react-app/src` and
-🦸 Frontend main component is `Home.jsx` in `packages/react-app/src/views`
-🦸 Frontend view files are in `packages/react-app/src/views`
-
-🔏 Smart contract are in `packages/hardhat/contracts`
-🚀 Deployment scripts are in `packages/hardhat/deploy`
-👨‍💻 Other scripts are in `packages/hardhat/scripts`
-
-## Express
-
-**This will be used in a lesson, to show how to use it, then how to migrate to a better option**
-
-> In a terminal window, you can start your 📱 express backend:
-
-```bash
-cd evolution-DAO
-yarn express
-```
-
-Then you can access http://localhost:3001/proposals to see the list of proposals from a REST API
-
-💡 if you use **nodemon** for development, you can use `yarn expressmon` to start monitoring changes on `index.js` file
-
-# 📚 Troubleshooting
-
-## Running the first time
-
-Can't run any of this commands from your Windows environment? [See HOW-TO-WSL.md](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-WSL.md)
-
-Don't have yarn to run the commands? [See HOW-TO-YARN.MD](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-YARN.md)
-
-Certain errors during the Quick Start are common, [see HOW-TO-SCAFFOLD-ETH.MD](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-SCAFFOLD-ETH.md)
-
-## Community docs & help
-
-Documentation, tutorials, challenges, and many more resources, visit: [docs.scaffoldeth.io](https://docs.scaffoldeth.io)
-
-Join the telegram [support chat 💬](https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA) or buidlguidl [discord](https://discord.gg/pRsr6rwG) to ask questions and find others building with 🏗 scaffold-eth!
+Maybe purge cache, liberating a port or the openssl error? See [HOW-TO-SCAFFOLD-ETH](https://github.com/luloxi/easy-everything/blob/main/HOW-TO-SCAFFOLD-ETH.md)
