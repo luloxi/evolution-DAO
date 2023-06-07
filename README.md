@@ -1,14 +1,16 @@
 # 🐣 evolution-DAO: Khazum
 
+Decentralized Autonomous Organizations (DAOs) are self-governing entities that operate on the blockchain. They are designed to operate without a central authority and rely on smart contracts to make decisions.
+
 evolution-DAO is a DAO development repo for building different DAOs with increasing difficulty.
 
-This branch is for Khazum, the next step in difficulty after Khazi.
+This branch is for Khazum, the next step in difficulty after [Khazi](https://github.com/luloxi/evolution-DAO/tree/khazi).
 
-See the live version [here]()
+Todo: See the live version [here]()
 
 # 🚩 Khazum: Simple DAO
 
-We start off with a modified version of Khazi ([Minimum Viable DAO](https://github.com/luloxi/evolution-DAO/tree/khazi)) but using ERC20 as votes, built using the [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) framework. It's a DAO for voting between two options with a deadline for the poll.
+We start off with a oversimplified version of a DAO using ERC20 as votes, built using the [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) framework. It's a DAO for voting between two options with a deadline for the poll.
 
 Following this lesson instructions, you'll build a DAO with ERC20 tokens as votes, with a minimum amount of tokens to vote.
 
@@ -39,7 +41,9 @@ You'll have three terminals up for:
 
 Run `yarn create-proposal` to see a `proposalCard` appear in the homepage according to `createProposal.js` script in the `packages/hardhat/scripts` folder.
 
-Navigate to the Debug Contracts tab and you should see a smart contract displayed called `Khazi`.
+To create additional voters, just start a private window on [http://localhost:3000/](http://localhost:3000/) and a new burner wallet will be associated with that window.
+
+Navigate to the Debug Contracts tab and you should see a smart contract displayed called `Khazum`.
 
 > 👩‍💻 We don't use `yarn deploy` without `--reset` to prevent errors on deploying a fresh new version of faucet, token and DAO contracts.
 
@@ -72,7 +76,7 @@ Great! Now each proposal should meet a minimum amount of votes to determine a wi
 
 ## ⛳️ Checkpoint 4: Adding an execution after deadline ☠️
 
-ToDo: Write an execution checkpoint, maybe including an address for each option in struct and taking a simple decision after deadline is met (if minimumVotes were met as well)
+ToDo: Write an execution checkpoint, maybe including an name for each option in struct and taking a simple decision after deadline is met (if minimumVotes were met as well)
 
 ### 🥅 Goals
 
@@ -80,7 +84,7 @@ ToDo: Write an execution checkpoint, maybe including an address for each option 
 
 ### ⚔️ Side Quests
 
-[ ] Can you do something different on execution? Maybe more variables in the proposal struct help
+[ ] Can you do something different on execution? Maybe adding address or other variables in the proposal struct help
 
 [ ] Can you turn the faucet into a token vending machine?
 
@@ -91,8 +95,6 @@ ToDo: Write an execution checkpoint, maybe including an address for each option 
 ### ⚠️ Test it!
 
 Now is a good time to run yarn test to run the automated testing function. It will test that you hit the core checkpoints. You are looking for all green checkmarks and passing tests!
-
-> If you used bytes32, it might fail a few tests
 
 ## Checkpoint 5: 🚢 Ship it 🚁
 
