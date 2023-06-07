@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 
 contract Khazi {
-    // Checkpoint 3: Include to ProposalCreated the optionA and optionB atributes of the same type as in Proposal struct
-    // Checkpoint 4: Include deadline as atribute to ProposalCreated
+    // Checkpoint 3: Include to ProposalCreated the optionA and optionB parameters of the same type as in Proposal struct
+    // Checkpoint 4: Include deadline as a parameter to ProposalCreated
     event ProposalCreated(uint256 proposalId, string title);
     event VoteCasted(uint256 proposalId, address voter, bool selectedOption);
 
@@ -22,11 +22,11 @@ contract Khazi {
     mapping(address => mapping(uint256 => bool)) public _hasVoted;
 
     // Checkpoint 3: Edit createProposal to:
-    // - Take _optionA and _optionB as arguments
+    // - Take _optionA and _optionB as parameters
     // - Add them as atributes for the proposal (as newProposal.title does for title)
     // - Add them as arguments to emit ProposalCreated
     // Checkpoint 4: Edit createProposal to:
-    // - Take a uint256 argument called _minutesUntilDeadline
+    // - Take a uint256 parameter called _minutesUntilDeadline
     // - Add it as an atribute for the proposal (block.timestamp + _minutesUntilDeadline * 1 minutes)
     // - Add newProposal.deadline as an argument to emit ProposalCreated
 
@@ -64,16 +64,10 @@ contract Khazi {
     // Checkpoint 4: Edit getProposal to:
     // - return deadline from the proposal
 
-    function getProposal(
-        uint256 _proposalId
-    )
+    function getProposal(uint256 _proposalId)
         public
         view
-        returns (
-            string memory title,
-            uint256 votesForOptionA,
-            uint256 votesForOptionB
-        )
+        returns (string memory title, uint256 votesForOptionA, uint256 votesForOptionB)
     {
         require(_proposalId < proposalCounter, "Invalid proposal ID");
         Proposal storage proposal = proposals[_proposalId];
@@ -87,10 +81,7 @@ contract Khazi {
         return proposalCounter;
     }
 
-    function hasVoted(
-        uint256 _proposalId,
-        address _voter
-    ) public view returns (bool) {
+    function hasVoted(uint256 _proposalId, address _voter) public view returns (bool) {
         return _hasVoted[_voter][_proposalId];
     }
 }
