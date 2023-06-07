@@ -23,6 +23,17 @@ const ProposalCard = ({ proposal, proposalId, tx, readContracts, writeContracts,
     }
   }
 
+  // Vote handling function
+  const handleVote = async option => {
+    try {
+      const result = tx(writeContracts.Khazi.vote(proposalId, option));
+      console.log("awaiting metamask/web3 confirm result...", result);
+      console.log(await result);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <Card
       className="proposal-card"
@@ -32,31 +43,7 @@ const ProposalCard = ({ proposal, proposalId, tx, readContracts, writeContracts,
             backgroundColor: "#f35b04",
             fontWeight: "bold",
           }}
-          onClick={async () => {
-            try {
-              const result = tx(writeContracts.Khazi.vote(proposalId, false), update => {
-                console.log("Transaction result:", result);
-                console.log("📡 Transaction Update:", update);
-                console.log("Transaction status:", update.status);
-                if (update && (update.status === "confirmed" || update.status === 1)) {
-                  console.log(" 🍾 Transaction " + update.hash + " finished!");
-                  console.log(
-                    " ⛽️ " +
-                      update.gasUsed +
-                      "/" +
-                      (update.gasLimit || update.gas) +
-                      " @ " +
-                      parseFloat(update.gasPrice) / 1000000000 +
-                      " gwei",
-                  );
-                }
-              });
-              console.log("awaiting metamask/web3 confirm result...", result);
-              console.log(await result);
-            } catch (error) {
-              console.error("Error:", error);
-            }
-          }}
+          onClick={() => handleVote(false)}
         >
           Vote for Option A
         </Button>,
@@ -65,31 +52,7 @@ const ProposalCard = ({ proposal, proposalId, tx, readContracts, writeContracts,
             backgroundColor: "#0081a7",
             fontWeight: "bold",
           }}
-          onClick={async () => {
-            try {
-              const result = tx(writeContracts.Khazi.vote(proposalId, true), update => {
-                console.log("Transaction result:", result);
-                console.log("📡 Transaction Update:", update);
-                console.log("Transaction status:", update.status);
-                if (update && (update.status === "confirmed" || update.status === 1)) {
-                  console.log(" 🍾 Transaction " + update.hash + " finished!");
-                  console.log(
-                    " ⛽️ " +
-                      update.gasUsed +
-                      "/" +
-                      (update.gasLimit || update.gas) +
-                      " @ " +
-                      parseFloat(update.gasPrice) / 1000000000 +
-                      " gwei",
-                  );
-                }
-              });
-              console.log("awaiting metamask/web3 confirm result...", result);
-              console.log(await result);
-            } catch (error) {
-              console.error("Error:", error);
-            }
-          }}
+          onClick={() => handleVote(true)}
         >
           Vote for Option B
         </Button>,
