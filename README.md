@@ -6,7 +6,7 @@ evolution-DAO is a DAO development repo for building different DAOs with increas
 
 # Lessons available
 
-## ⛳️ Buidl a Minimal Viable DAO 📦 with Khazi 📚
+## Lesson #0 ⛳️ Buidl a Minimal Viable DAO 📦 with Khazi 📚
 
 **Khazi** (DAO with one vote per address) [live version here](https://vote-with-khazi.surge.sh/)
 
@@ -23,7 +23,7 @@ From there, instructions are in the README.md and relevant files.
 
 You can also read the instructions [here](https://github.com/luloxi/evolution-DAO/tree/khazi)
 
-## ⛳️ Buidl a Simple DAO 💀 with Khazum 📚
+## Lesson #1 ⛳️ Buidl a Simple DAO 💀 with Khazum 📚
 
 **Khazum** (DAO with ERC20 as votes, minimum votes, and execution after deadline 💀)
 
