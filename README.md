@@ -1,5 +1,7 @@
 # 🐣 evolution-DAO: Khazi
 
+Decentralized Autonomous Organizations (DAOs) are self-governing entities that operate on the blockchain. They are designed to operate without a central authority and rely on smart contracts to make decisions.
+
 evolution-DAO is a DAO development repo for building different DAOs with increasing difficulty.
 
 This branch is for Khazi, the most basic of them all.
@@ -54,9 +56,6 @@ Navigate to the Debug Contracts tab and you should see a smart contract displaye
 
 First, you should edit the `struct Proposal` and add two `string` parameters for optionA and optionB.
 
-> You can use `bytes32` instead of `string` for gas efficiency!
-> (can you spot other optimizations in this contract? 🤔)
-
 Now search for this parts of the code and follow the checkpoint 3 instructions there:
 
 - `event ProposalCreated`
@@ -107,8 +106,6 @@ Create a new proposal now with `yarn create-proposal`, you should see an updated
 ### ⚠️ Test it!
 
 Now is a good time to run yarn test to run the automated testing function. It will test that you hit the core checkpoints. You are looking for all green checkmarks and passing tests!
-
-> If you used bytes32, it might fail a few tests
 
 ## Checkpoint 5: 🚢 Ship it 🚁
 
