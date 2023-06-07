@@ -41,6 +41,8 @@ You'll have three terminals up for:
 
 Run `yarn create-proposal` to see a `proposalCard` appear in the homepage according to `createProposal.js` script in the `packages/hardhat/scripts` folder.
 
+To create additional voters, just start a private window on [http://localhost:3000/](http://localhost:3000/) and a new burner wallet will be associated with that window.
+
 Navigate to the Debug Contracts tab and you should see a smart contract displayed called `Khazi`.
 
 > 👩‍💻 Rerun `yarn deploy` whenever you want to deploy new contracts to the frontend (run `yarn deploy --reset` for a completely fresh deploy if you have made no contract changes).
