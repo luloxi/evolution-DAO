@@ -6,14 +6,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-self: flex-end;
+  padding: 0; /* Remove the default padding */
 }
 
 .proposal-card .ant-card-actions {
-  text-align: center;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0; /* Remove the default margin */
+}
+
+.proposal-card .ant-card-actions > * {
+  flex-basis: 100%;
+  margin-bottom: 10px;
+}
+
+.proposal-card .ant-card-actions > :first-child {
+  margin-left: 10px;
+}
+
+.proposal-card .ant-card-actions > :last-child {
+  margin-right: 10px;
+}
+
+.proposal-card .ant-card-actions > div {
+  width: 100%; /* Add this line to make the button containers span the full width */
+}
+
+.proposal-card .ant-card-actions > div:last-child {
+  text-align: center; /* Add this line to center the "Execute Proposal" button */
 }
 
 .proposal-card .ant-card-body {

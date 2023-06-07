@@ -16,6 +16,7 @@ struct Proposal {
     uint256 proposalDeadline;
     uint256 votesForOptionA;
     uint256 votesForOptionB;
+    uint256 minimumVotes;
     address optionA;
     address optionB;
     string nameForOptionA;
@@ -38,6 +39,7 @@ contract Khazum is Ownable {
         uint256 proposalDeadline,
         uint256 votesForOptionA,
         uint256 votesForOptionB,
+        uint256 minimumVotes,
         address optionA,
         address optionB,
         string nameForOptionA,
@@ -80,6 +82,7 @@ contract Khazum is Ownable {
         Proposal memory newProposal;
         newProposal.title = _title;
         newProposal.proposalDeadline = block.timestamp + (_proposalDurationInMinutes * 1 minutes);
+        newProposal.minimumVotes = _minimumVotes;
         newProposal.optionA = _optionA;
         newProposal.optionB = _optionB;
         newProposal.nameForOptionA = _nameForOptionA;
@@ -95,6 +98,7 @@ contract Khazum is Ownable {
             newProposal.proposalDeadline,
             newProposal.votesForOptionA,
             newProposal.votesForOptionB,
+            newProposal.minimumVotes,
             newProposal.optionA,
             newProposal.optionB,
             newProposal.nameForOptionA,
@@ -156,6 +160,7 @@ contract Khazum is Ownable {
             uint256 proposalDeadline,
             uint256 votesForOptionA,
             uint256 votesForOptionB,
+            uint256 minimumVotes,
             address optionA,
             address optionB,
             string memory nameForOptionA,
@@ -169,6 +174,7 @@ contract Khazum is Ownable {
         proposalDeadline = proposal.proposalDeadline;
         votesForOptionA = proposal.votesForOptionA;
         votesForOptionB = proposal.votesForOptionB;
+        minimumVotes = proposal.minimumVotes;
         optionA = proposal.optionA;
         optionB = proposal.optionB;
         nameForOptionA = proposal.nameForOptionA;

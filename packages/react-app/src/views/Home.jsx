@@ -2,57 +2,67 @@ import { useContractReader } from "eth-hooks";
 import React, { useEffect, useState } from "react";
 import { Row, Col } from "antd";
 import { KhaFaucet } from "./";
-import ProposalCard from "../views/ProposalCard";
+import ProposalCard from "./ProposalCard";
+import WinnerList from "./WinnerList";
 
 function Home({ yourLocalBalance, readContracts, tx, writeContracts, address }) {
   const [proposals, setProposals] = useState([]);
+  const [winners, setWinners] = useState([]);
 
   const proposalCount = useContractReader(readContracts, "Khazum", "getProposalCount");
 
-  // Information retrieve
-
+  /* Fetch proposals */
   useEffect(() => {
     if (proposalCount && proposalCount.gt(0)) {
       const promises = [];
 
       // Search and retrieve data from all the proposals according to proposalCount
-
-      for (let i = 0; i < proposalCount.toNumber(); i++) {
+      for (let i = proposalCount.toNumber() - 1; i >= 0; i--) {
         promises.push(
           readContracts.Khazum.proposals(i).then(proposal => {
             return {
               ...proposal,
-              proposalDeadline: parseInt(proposal.proposalDeadline, 10),
-              minimumVotes: parseInt(proposal.minimumVotes, 10),
-              votesForOptionA: parseInt(proposal.votesForOptionA, 10),
-              votesForOptionB: parseInt(proposal.votesForOptionB, 10),
             };
           }),
         );
       }
 
-      // Set the list of proposals,
-      // with the order reversed to show the newest at the top
-
       Promise.all(promises).then(results => {
-        setProposals(results.reverse());
+        setProposals(results);
       });
     }
   }, [proposalCount, readContracts.Khazum]);
+
+  /* Fetch winners */
+  const fetchWinners = async () => {
+    const winnerList = [];
+    for (let i = 0; i < proposalCount; i++) {
+      const [winnerName, winnerAddress] = await readContracts.Khazum.getWinner(i);
+      winnerList.push({ winnerName: winnerName, winnerAddress: winnerAddress });
+    }
+    setWinners(winnerList);
+  };
+
+  useEffect(() => {
+    fetchWinners();
+  }, [readContracts]);
 
   return (
     <div style={{ paddingBottom: "30px" }}>
       <div style={{ margin: 32 }}>
         <KhaFaucet readContracts={readContracts} tx={tx} address={address} writeContracts={writeContracts} />
-        <Row gutter={[16, 16]}>
+        <WinnerList winners={winners} />
+        <Row gutter={[16, 16]} justify="end">
+          {/* Render each proposal card */}
           {proposals.map((proposal, index) => (
             <Col key={index} xs={24} sm={24} md={12} lg={8}>
               <ProposalCard
                 proposal={proposal}
-                proposalId={proposals.length - index - 1}
+                proposalId={index}
                 tx={tx}
                 readContracts={readContracts}
                 writeContracts={writeContracts}
+                address={address}
               />
             </Col>
           ))}

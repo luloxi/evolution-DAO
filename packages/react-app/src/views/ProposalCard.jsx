@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Button, Switch, Card, notification } from "antd";
+import { Button, Card, notification } from "antd";
+import { useContractReader } from "eth-hooks";
 
-const { Meta } = Card;
 console.log("ProposalCard component loaded");
 
 const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts, address }) => {
-  const [option, setOption] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(null);
+
+  // HasVoted reading
+  const hasVoted = useContractReader(readContracts, "Khazum", "hasVoted", [proposalId, address]);
 
   const optionAVotes = Number(proposal.votesForOptionA) / 10 ** 18;
   const optionBVotes = Number(proposal.votesForOptionB) / 10 ** 18;
@@ -81,59 +83,118 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
     <Card
       className="proposal-card"
       actions={[
-        <div className={`switch-container ${option === 1 ? "switch-container-b" : "switch-container-a"}`}>
-          {" "}
-          <span className={`option-label ${option === 0 ? "selected-a" : "not-selected-a"}`}>A</span>{" "}
-          <Switch
-            className="switch-container"
-            checked={option === 1}
-            onChange={checked => setOption(checked ? 1 : 0)}
-          />{" "}
-          <span className={`option-label ${option === 1 ? "selected-b" : "not-selected-"}`}>B</span>{" "}
-        </div>,
-        <Button
-          style={{
-            backgroundColor:
-              proposal.status === 1 ? "#cccccc" : option === 0 ? "#f35b04" : option === 1 ? "#0081a7" : "initial",
-            fontWeight: "bold",
-          }}
-          onClick={async () => {
-            try {
-              const result = tx(writeContracts.Khazum.vote(proposalId, option), update => {
-                console.log("Transaction result:", result);
-                console.log("📡 Transaction Update:", update);
-                console.log("Transaction status:", update.status);
-                if (update && (update.status === "confirmed" || update.status === 1)) {
-                  console.log(" 🍾 Transaction " + update.hash + " finished!");
-                  console.log(
-                    " ⛽️ " +
-                      update.gasUsed +
-                      "/" +
-                      (update.gasLimit || update.gas) +
-                      " @ " +
-                      parseFloat(update.gasPrice) / 1000000000 +
-                      " gwei",
-                  );
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
+          {/* Voting buttons */}
+          <div>
+            <Button
+              style={{
+                backgroundColor: "#f35b04",
+                fontWeight: "bold",
+              }}
+              onClick={async () => {
+                try {
+                  const result = tx(writeContracts.Khazum.vote(proposalId, 0), update => {
+                    console.log("Transaction result:", result);
+                    console.log("📡 Transaction Update:", update);
+                    console.log("Transaction status:", update.status);
+                    if (update && (update.status === "confirmed" || update.status === 1)) {
+                      console.log(" 🍾 Transaction " + update.hash + " finished!");
+                      console.log(
+                        " ⛽️ " +
+                          update.gasUsed +
+                          "/" +
+                          (update.gasLimit || update.gas) +
+                          " @ " +
+                          parseFloat(update.gasPrice) / 1000000000 +
+                          " gwei",
+                      );
+                    }
+                  });
+                  console.log("awaiting metamask/web3 confirm result...", result);
+                  console.log(await result);
+                } catch (error) {
+                  console.error("Error:", error);
                 }
-              });
-              console.log("awaiting metamask/web3 confirm result...", result);
-              console.log(await result);
-            } catch (error) {
-              console.error("Error:", error);
-              openNotification("error", "Error", error);
-            }
-          }}
-        >
-          {option === 0 ? "Vote Option A" : option === 1 ? "Vote Option B" : "Vote!"}
-        </Button>,
+              }}
+            >
+              Vote for Option A
+            </Button>
+          </div>
+          <div>
+            <Button
+              style={{
+                backgroundColor: "#0081a7",
+                fontWeight: "bold",
+              }}
+              onClick={async () => {
+                try {
+                  const result = tx(writeContracts.Khazum.vote(proposalId, 1), update => {
+                    console.log("Transaction result:", result);
+                    console.log("📡 Transaction Update:", update);
+                    console.log("Transaction status:", update.status);
+                    if (update && (update.status === "confirmed" || update.status === 1)) {
+                      console.log(" 🍾 Transaction " + update.hash + " finished!");
+                      console.log(
+                        " ⛽️ " +
+                          update.gasUsed +
+                          "/" +
+                          (update.gasLimit || update.gas) +
+                          " @ " +
+                          parseFloat(update.gasPrice) / 1000000000 +
+                          " gwei",
+                      );
+                    }
+                  });
+                  console.log("awaiting metamask/web3 confirm result...", result);
+                  console.log(await result);
+                } catch (error) {
+                  console.error("Error:", error);
+                }
+              }}
+            >
+              Vote for Option B
+            </Button>
+          </div>
+        </div>,
+        /* Execute Proposal button */
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Button
+            disabled={proposal.status === 0 || proposal.status === 2 || timeRemaining !== null}
+            onClick={async () => {
+              try {
+                const result = tx(writeContracts.Khazum.executeProposal(proposalId), update => {
+                  console.log("Transaction result:", result);
+                  console.log("📡 Transaction Update:", update);
+                  console.log("Transaction status:", update.status);
+                  if (update && (update.status === "confirmed" || update.status === 1)) {
+                    console.log(" 🍾 Transaction " + update.hash + " finished!");
+                    console.log(
+                      " ⛽️ " +
+                        update.gasUsed +
+                        "/" +
+                        (update.gasLimit || update.gas) +
+                        " @ " +
+                        parseFloat(update.gasPrice) / 1000000000 +
+                        " gwei",
+                    );
+                  }
+                });
+                console.log("awaiting metamask/web3 confirm result...", result);
+                console.log(await result);
+              } catch (error) {
+                console.error("Error:", error);
+                openNotification("error", "Error", error);
+              }
+            }}
+          >
+            Execute Proposal
+          </Button>
+        </div>,
       ]}
     >
       {proposal && (
         <>
-          <Meta
-            title={"Proposal #" + proposalId + ": " + proposal.title.toString()}
-            description={proposal.description.toString()}
-          />
+          <h2>{"Proposal #" + proposalId + ": " + proposal.title.toString()}</h2>
           <div className="proposal-content">
             <p className="proposal-status">
               {proposal.status === 0 &&
@@ -196,6 +257,20 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="proposal-content" style={{ textAlign: "center" }}>
+              <p>
+                Have YOU voted in this proposal?{" "}
+                <span
+                  style={{
+                    backgroundColor: hasVoted ? "green" : "red",
+                    color: "#fff",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {hasVoted ? "YES" : "NO"}
+                </span>
+              </p>
             </div>
           </div>
         </>
