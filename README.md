@@ -8,7 +8,7 @@ See the live version [here]()
 
 # 🚩 Khazum: Simple DAO
 
-We start off with a [Minimum Viable DAO](https://github.com/luloxi/evolution-DAO/tree/khazi) build using the [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) framework. It's a DAO for voting between two options, with a name for each option and a deadline for the poll.
+We start off with a modified version of Khazi ([Minimum Viable DAO](https://github.com/luloxi/evolution-DAO/tree/khazi)) but using ERC20 as votes, built using the [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) framework. It's a DAO for voting between two options with a deadline for the poll.
 
 Following this lesson instructions, you'll build a DAO with ERC20 tokens as votes, with a minimum amount of tokens to vote.
 
