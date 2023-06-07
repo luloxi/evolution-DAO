@@ -44,7 +44,6 @@ contract Khazi {
 
     // Checkpoint 4: Require that block.timestamp be smaller than proposal.deadline to restrict voting beyond deadline
     function vote(uint256 _proposalId, bool _selectedOption) public {
-        require(_proposalId < proposalCounter, "Invalid proposal ID");
         Proposal storage proposal = proposals[_proposalId];
         require(!_hasVoted[msg.sender][_proposalId], "Already voted");
 
