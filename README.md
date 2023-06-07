@@ -162,13 +162,10 @@ To see current development info [click here](https://lulox.notion.site/evolution
 
 Available lessons:
 
-- **Khazi** (DAO with one vote per address)
+- **Khazi** (DAO with one vote per address, named options and a deadline)
+- **Khazum** (DAO with ERC20 as votes, minimum votes and execution after deadline)
 
-Available builds:
-
-- **Khazum** (DAO with ERC20 as votes, minimum votes and a deadline)
-
-Under development:
+Future development:
 
 - **Khazerium** (DAO + ERC20Votes + mint NFT to proposal executor)
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
