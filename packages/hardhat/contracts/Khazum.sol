@@ -35,11 +35,10 @@ contract Khazum is Ownable {
     // Checkpoint 3: In ProposalCreated, include minimumVotes as a parameter of the same type as in the Proposal struct
     // Checkpoint 4: In ProposalCreated, include newly added Proposal struct values
     event ProposalCreated(uint256 proposalId, string title, uint256 proposalDeadline);
-
     event VoteCasted(uint256 proposalId, address voter, Option selectedOption);
 
-    mapping(uint256 => Proposal) public proposals;
     // Checkpoint 5: Create a mapping from uint256 (proposal id) to Winner struct
+    mapping(uint256 => Proposal) public proposals;
     mapping(address => mapping(uint256 => bool)) public hasVoted;
     mapping(address => mapping(uint256 => Option)) public voterOption;
 
