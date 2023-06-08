@@ -34,9 +34,7 @@ struct Winner {
 contract Khazum is Ownable {
     // Checkpoint 3: In ProposalCreated, include minimumVotes as a parameter of the same type as in the Proposal struct
     // Checkpoint 4: In ProposalCreated, include newly added Proposal struct values
-    event ProposalCreated(
-        uint256 proposalId, string title, uint256 proposalDeadline, uint256 votesForOptionA, uint256 votesForOptionB
-    );
+    event ProposalCreated(uint256 proposalId, string title, uint256 proposalDeadline);
 
     event VoteCasted(uint256 proposalId, address voter, Option selectedOption);
 
@@ -70,9 +68,7 @@ contract Khazum is Ownable {
         proposals[proposalCounter] = newProposal;
         proposalCounter++;
 
-        emit ProposalCreated(
-            proposalId, _title, newProposal.proposalDeadline, newProposal.votesForOptionA, newProposal.votesForOptionB
-        );
+        emit ProposalCreated(proposalId, _title, newProposal.proposalDeadline);
     }
 
     function vote(uint256 _proposalId, Option _selectedOption) public {
