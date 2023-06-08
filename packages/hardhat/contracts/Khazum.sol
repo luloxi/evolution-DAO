@@ -25,11 +25,6 @@ struct Proposal {
 // - an uint256 for proposalId
 // - a string winnerName
 // - an address for winnerAddress
-struct Winner {
-    uint256 proposalId;
-    string winnerName;
-    address winnerAddress;
-}
 
 contract Khazum is Ownable {
     // Checkpoint 3: In ProposalCreated, include minimumVotes as a parameter of the same type as in the Proposal struct
