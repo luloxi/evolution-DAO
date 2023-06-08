@@ -11,11 +11,11 @@ export default function Header({ link, title, subTitle, ...props }) {
       <div style={{ display: "flex", flexDirection: "column", flex: 1, alignItems: "start" }}>
         <a href={link} target="_blank" rel="noopener noreferrer">
           <Title level={4} style={{ margin: "0 0.5rem 0 0" }}>
-            {"🐣 evolution-DAO"}
+            {"🐣 Khazum"}
           </Title>
         </a>
         <Text type="secondary" style={{ textAlign: "left" }}>
-          {"Learn from the basics how to develop increasingly complex DAOs"}
+          {"Token gated DAO for voting a donation beneficiary"}
         </Text>
       </div>
       {props.children}
