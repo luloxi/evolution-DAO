@@ -72,7 +72,7 @@ Now go to `packages/hardhat/scripts` and edit `createProposal.js` call to create
 
 > Remember to run `yarn deploy --reset` to deploy the new version of the contract before calling your modified createProposal.js!
 
-Great! Now each proposal should meet a minimum amount of votes to determine a winner! Try calling `yarn create-proposal` to see it in action!
+Great! Now each proposal should meet a minimum amount of votes to determine a winner! Try calling `yarn create-proposal` to see "Minimum Votes" appear to each ProposalCard!
 
 ## ⛳️ Checkpoint 4: Adding values to use on an execution ☠️
 
