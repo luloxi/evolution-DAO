@@ -12,7 +12,7 @@ Todo: See the live version [here](http://vote-with-khazum.surge.sh/)
 
 We start off with a oversimplified version of a DAO using ERC20 as votes, built using the [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) framework. It's a DAO for voting between two options with a deadline for the poll.
 
-Following this lesson instructions, you'll build a DAO with ERC20 tokens as votes, with a minimum amount of tokens to vote.
+Following this lesson instructions, you'll build a DAO with ERC20 tokens as votes, with a minimum amount of tokens to vote and an execution after deadline has passed.
 
 Start by editing the `packages/hardhat/contracts/Khazum.sol` contract. This repo also has solutions (👮🏻 try not to peek!) in the `/solution` folder, but you will learn more by writing the code yourself!
 
