@@ -119,7 +119,7 @@ contract Khazum is Ownable {
 
     // Checkpoint 3: Edit getProposal to:
     // - return minimumVotes from the proposal
-    // Hint: remember to add it to returns in the function header
+    // Hint: remember to add it to returns in the function header and also like proposal.title
     // Checkpoint 4: Return all the new values in Proposal struct from getProposal
     // Checkpoint 5: Return the bool executed from getProposal
     function getProposal(uint256 _proposalId)
