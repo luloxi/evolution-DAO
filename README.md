@@ -25,7 +25,7 @@ You can also read the instructions [here](https://github.com/luloxi/evolution-DA
 
 ## Lesson #1 ⛳️ Buidl a Simple DAO 💀 with Khazum 📚
 
-**Khazum** (DAO with ERC20 as votes, minimum votes, and execution after deadline 💀)
+**Khazum** (DAO with ERC20 as votes, minimum votes, and execution after deadline 💀) [live version here](http://vote-with-khazum.surge.sh/)
 
 ```bash
 git clone https://github.com/luloxi/evolution-DAO.git khazum
@@ -38,7 +38,7 @@ From there, instructions are in the README.md and relevant files.
 
 You can also read the instructions [here](https://github.com/luloxi/evolution-DAO/tree/khazum)
 
-Future development:
+# Future development:
 
 - **Khazerium** (DAO + ERC20Votes + mint NFT to proposal executor)
 - **Khazathon** (quadratic DAO + NFT2executor + dynamic NFT given **optionally** for voters)
