@@ -134,7 +134,7 @@ Phew! That was a long checkpoint! Congratulations on finishing this lesson!
 
 Now is a good time to run yarn test to run the automated testing function. It will test that you hit the core checkpoints. You are looking for all green checkmarks and passing tests!
 
-## Checkpoint 5: 🚢 Ship it 🚁
+## Checkpoint 6: 🚢 Ship it 🚁
 
 📡 Edit the `defaultNetwork` to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/) in `packages/hardhat/hardhat.config.js`
 
@@ -148,7 +148,7 @@ Now is a good time to run yarn test to run the automated testing function. It wi
 
 For `yarn create-proposal` to work on your network, update this line in the script: `const khaziContractAddress = require("../deployments/YOUR_NETWORK/Khazi.json").address;` with your network.
 
-## Checkpoint 6: 🎚 Frontend 🧘‍♀️
+## Checkpoint 7: 🎚 Frontend 🧘‍♀️
 
 📝 Edit the `initialNetwork` in `App.jsx` (in `packages/react-app/src`) to be the public network where you deployed your smart contract.
 
@@ -166,7 +166,7 @@ For `yarn create-proposal` to work on your network, update this line in the scri
 
 🚔 Traffic to your url might break the [Infura](https://www.infura.io/) rate limit, edit your key: `constants.js` in `packages/ract-app/src`.
 
-## Checkpoint 7: 📜 Contract Verification
+## Checkpoint 8: 📜 Contract Verification
 
 Update the api-key in `packages/hardhat/package.json` file. You can get your key [here](https://etherscan.io/login?cmd=last).
 
