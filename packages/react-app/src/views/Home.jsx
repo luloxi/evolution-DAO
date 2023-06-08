@@ -21,6 +21,7 @@ function Home({ yourLocalBalance, readContracts, tx, writeContracts, address }) 
         promises.push(
           readContracts.Khazum.proposals(i).then(proposal => {
             return {
+              id: i, // unique identifier for each proposal
               ...proposal,
             };
           }),
@@ -34,31 +35,39 @@ function Home({ yourLocalBalance, readContracts, tx, writeContracts, address }) 
   }, [proposalCount, readContracts.Khazum]);
 
   /* Fetch winners */
-  const fetchWinners = async () => {
-    const winnerList = [];
-    for (let i = 0; i < proposalCount; i++) {
-      const [winnerName, winnerAddress] = await readContracts.Khazum.getWinner(i);
-      winnerList.push({ winnerName: winnerName, winnerAddress: winnerAddress });
-    }
-    setWinners(winnerList);
-  };
-
   useEffect(() => {
+    const fetchWinners = async () => {
+      const winnerList = [];
+      for (let i = 0; i < proposalCount; i++) {
+        let winnerName, winnerAddress;
+        try {
+          [winnerName, winnerAddress] = await readContracts.Khazum.getWinner(i);
+        } catch (error) {
+          console.log("getWinner function does not exist");
+          break;
+        }
+        if (winnerAddress !== "0x0000000000000000000000000000000000000000") {
+          winnerList.push({ proposalId: i, winnerName: winnerName, winnerAddress: winnerAddress });
+        }
+      }
+      setWinners(winnerList);
+    };
+
     fetchWinners();
-  }, [readContracts]);
+  }, [proposalCount, readContracts.Khazum]);
 
   return (
-    <div style={{ paddingBottom: "30px" }}>
+    <div style={{ paddingBottom: "150px" }}>
       <div style={{ margin: 32 }}>
         <KhaFaucet readContracts={readContracts} tx={tx} address={address} writeContracts={writeContracts} />
-        <WinnerList winners={winners} />
+        <WinnerList winners={winners} proposalNumber={proposalCount} />
         <Row gutter={[16, 16]} justify="end">
           {/* Render each proposal card */}
           {proposals.map((proposal, index) => (
             <Col key={index} xs={24} sm={24} md={12} lg={8}>
               <ProposalCard
                 proposal={proposal}
-                proposalId={index}
+                proposalId={proposal.id}
                 tx={tx}
                 readContracts={readContracts}
                 writeContracts={writeContracts}

@@ -8,7 +8,7 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
   const [timeRemaining, setTimeRemaining] = useState(null);
 
   // HasVoted reading
-  const hasVoted = useContractReader(readContracts, "Khazum", "hasVoted", [proposalId, address]);
+  const hasVoted = useContractReader(readContracts, "Khazum", "viewHasVoted", [proposalId, address]);
 
   const optionAVotes = Number(proposal.votesForOptionA) / 10 ** 18;
   const optionBVotes = Number(proposal.votesForOptionB) / 10 ** 18;
@@ -55,6 +55,18 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
     }
   };
 
+  // Vote handling
+
+  const handleVote = async (proposalId, option) => {
+    try {
+      const result = await tx(writeContracts.Khazum.vote(proposalId, option));
+      console.log("awaiting metamask/web3 confirm result...", result);
+      console.log(await result);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   // Error handling
 
   const openNotification = (type, message, error) => {
@@ -91,33 +103,9 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
                 backgroundColor: "#f35b04",
                 fontWeight: "bold",
               }}
-              onClick={async () => {
-                try {
-                  const result = tx(writeContracts.Khazum.vote(proposalId, 0), update => {
-                    console.log("Transaction result:", result);
-                    console.log("📡 Transaction Update:", update);
-                    console.log("Transaction status:", update.status);
-                    if (update && (update.status === "confirmed" || update.status === 1)) {
-                      console.log(" 🍾 Transaction " + update.hash + " finished!");
-                      console.log(
-                        " ⛽️ " +
-                          update.gasUsed +
-                          "/" +
-                          (update.gasLimit || update.gas) +
-                          " @ " +
-                          parseFloat(update.gasPrice) / 1000000000 +
-                          " gwei",
-                      );
-                    }
-                  });
-                  console.log("awaiting metamask/web3 confirm result...", result);
-                  console.log(await result);
-                } catch (error) {
-                  console.error("Error:", error);
-                }
-              }}
+              onClick={() => handleVote(proposalId, 0)}
             >
-              Vote for Option A
+              Vote for {proposal.nameForOptionA ? proposal.nameForOptionA : "Option A"}
             </Button>
           </div>
           <div>
@@ -126,33 +114,9 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
                 backgroundColor: "#0081a7",
                 fontWeight: "bold",
               }}
-              onClick={async () => {
-                try {
-                  const result = tx(writeContracts.Khazum.vote(proposalId, 1), update => {
-                    console.log("Transaction result:", result);
-                    console.log("📡 Transaction Update:", update);
-                    console.log("Transaction status:", update.status);
-                    if (update && (update.status === "confirmed" || update.status === 1)) {
-                      console.log(" 🍾 Transaction " + update.hash + " finished!");
-                      console.log(
-                        " ⛽️ " +
-                          update.gasUsed +
-                          "/" +
-                          (update.gasLimit || update.gas) +
-                          " @ " +
-                          parseFloat(update.gasPrice) / 1000000000 +
-                          " gwei",
-                      );
-                    }
-                  });
-                  console.log("awaiting metamask/web3 confirm result...", result);
-                  console.log(await result);
-                } catch (error) {
-                  console.error("Error:", error);
-                }
-              }}
+              onClick={() => handleVote(proposalId, 1)}
             >
-              Vote for Option B
+              Vote for {proposal.nameForOptionB ? proposal.nameForOptionB : "Option B"}
             </Button>
           </div>
         </div>,
@@ -162,23 +126,7 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
             disabled={proposal.status === 0 || proposal.status === 2 || timeRemaining !== null}
             onClick={async () => {
               try {
-                const result = tx(writeContracts.Khazum.executeProposal(proposalId), update => {
-                  console.log("Transaction result:", result);
-                  console.log("📡 Transaction Update:", update);
-                  console.log("Transaction status:", update.status);
-                  if (update && (update.status === "confirmed" || update.status === 1)) {
-                    console.log(" 🍾 Transaction " + update.hash + " finished!");
-                    console.log(
-                      " ⛽️ " +
-                        update.gasUsed +
-                        "/" +
-                        (update.gasLimit || update.gas) +
-                        " @ " +
-                        parseFloat(update.gasPrice) / 1000000000 +
-                        " gwei",
-                    );
-                  }
-                });
+                const result = tx(writeContracts.Khazum.executeProposal(proposalId));
                 console.log("awaiting metamask/web3 confirm result...", result);
                 console.log(await result);
               } catch (error) {
@@ -206,10 +154,14 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
               {((proposal.status === 1 && hasVotes) || timeRemaining === null) && (
                 <>
                   {optionAVotes > optionBVotes && optionAVotes + optionBVotes >= proposal.minimumVotes && (
-                    <span style={{ fontWeight: "bold", color: "#f35b04" }}>Option A won</span>
+                    <span style={{ fontWeight: "bold", color: "#f35b04" }}>
+                      {proposal.nameForOptionA ? proposal.nameForOptionA : "Option A"} won
+                    </span>
                   )}
                   {optionAVotes < optionBVotes && optionAVotes + optionBVotes >= proposal.minimumVotes && (
-                    <span style={{ fontWeight: "bold", color: "#0081a7" }}>Option B won</span>
+                    <span style={{ fontWeight: "bold", color: "#0081a7" }}>
+                      {proposal.nameForOptionB ? proposal.nameForOptionB : "Option B"} won
+                    </span>
                   )}
                   {optionAVotes === optionBVotes && optionAVotes + optionBVotes >= proposal.minimumVotes && (
                     <span style={{ fontWeight: "bold", color: "#ff9914" }}>Tie</span>
@@ -235,9 +187,11 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
                     <br />
                     {timeRemaining ? timeRemaining : new Date(proposal.proposalDeadline * 1000).toLocaleString()}
                   </p>
-                  <p>
-                    <span className="vote-label">Minimum Votes:</span> {parseInt(proposal.minimumVotes, 10)}
-                  </p>
+                  {proposal.minimumVotes && (
+                    <p>
+                      <span className="vote-label">Minimum Votes:</span> {parseInt(proposal.minimumVotes, 10)}
+                    </p>
+                  )}
                 </div>
                 <div></div>
               </div>
@@ -246,13 +200,18 @@ const ProposalCard = ({ proposal, proposalId, tx, writeContracts, readContracts,
               <div className="proposal-content">
                 <div className="proposal-column">
                   <div className="proposal-content">
-                    <p className="vote-label vote-label-a"> Votes for Option A: </p>
+                    <p className="vote-label vote-label-a">
+                      {" "}
+                      Votes for {proposal.nameForOptionA ? proposal.nameForOptionA : "Option A"}:{" "}
+                    </p>
                     <p className="vote-count">{optionAVotes}</p>
                   </div>
                 </div>
                 <div className="proposal-column">
                   <div className="proposal-content">
-                    <p className="vote-label vote-label-b">Votes for Option B:</p>
+                    <p className="vote-label vote-label-b">
+                      Votes for {proposal.nameForOptionB ? proposal.nameForOptionB : "Option B"}:
+                    </p>
                     <p className="vote-count">{optionBVotes}</p>
                   </div>
                 </div>

@@ -68,23 +68,59 @@ Now search for this parts of the code and follow the checkpoint 3 instructions t
 - `function createProposal`
 - `function getProposal`
 
-To finish, go to `packages/hardhat/scripts` and edit `createProposal.js` call to createProposal to account for changes made!
+Now go to `packages/hardhat/scripts` and edit `createProposal.js` call to createProposal to account for changes made!
 
 > Remember to run `yarn deploy --reset` to deploy the new version of the contract before calling your modified createProposal.js!
 
 Great! Now each proposal should meet a minimum amount of votes to determine a winner! Try calling `yarn create-proposal` to see it in action!
 
-## ⛳️ Checkpoint 4: Adding an execution after deadline ☠️
+## ⛳️ Checkpoint 4: Adding values to use on an execution ☠️
 
-ToDo: Write an execution checkpoint, maybe including an name for each option in struct and taking a simple decision after deadline is met (if minimumVotes were met as well)
+Edit the `struct Proposal` to include strings and addresses for options according to checkpoint instructions there.
+
+Now search for this parts of the code and follow the checkpoint 4 instructions there:
+
+- `event ProposalCreated`
+- `function createProposal`
+- `function getProposal`
+
+To finish this checkpoint, go to `packages/hardhat/scripts` and edit `createProposal.js`.
+
+When calling `yarn create-proposal` you should see options have names now in the frontend!
+
+> Remember to run `yarn deploy --reset` to deploy the new version of the contract before calling your modified createProposal.js!
+
+Fantastic! Now we have values that we can use in an execution after deadline has been met!
+
+## ⛳️ Checkpoint 5: Adding an execution after deadline ☠️
+
+Edit the `struct Proposal` to add a bool "executed" to check if proposal has been executed.
+
+Create a `struct Winner` as specified on the checkpoint instructions under struct Proposal.
+
+Then, create a mapping of "winners" as specified on the checkpoint instructions in the mappings section.
+
+Uncomment the function `executeProposal` and read it to understand how it works. It's important that you named your mapping "winners" for it to work.
+
+Edit `function getProposal` to return the executed bool we added to the struct Proposal.
+
+Create a `function getWinner` as specified on the checkpoint instructions under `function getProposal`
+
+Phew! That was a long checkpoint! Congratulations on finishing this lesson!
+
+> Okay, you can check the solutions in the `/solution` folder to see if you got everything right. If variable names aren't the same, frontend may not reflect the changes made to the contract
 
 ### 🥅 Goals
 
 [ ] Does the proposal card display "Minimum votes not met" if there were some votes but not enough?
 
+[ ] Does the frontend display names for options in each ProposalCard?
+
+[ ] Does the frontend display a new recent winner after you execute a proposal?
+
 ### ⚔️ Side Quests
 
-[ ] Can you do something different on execution? Maybe adding address or other variables in the proposal struct help
+[ ] Can you do something different on execution? Maybe adding other variables in the proposal struct help
 
 [ ] Can you turn the faucet into a token vending machine?
 
