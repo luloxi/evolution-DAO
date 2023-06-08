@@ -34,6 +34,10 @@ git checkout khazum
 yarn install
 ```
 
+From there, instructions are in the README.md and relevant files.
+
+You can also read the instructions [here](https://github.com/luloxi/evolution-DAO/tree/khazum)
+
 Future development:
 
 - **Khazerium** (DAO + ERC20Votes + mint NFT to proposal executor)
