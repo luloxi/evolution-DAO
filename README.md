@@ -49,7 +49,7 @@ Navigate to the Debug Contracts tab and you should see a smart contract displaye
 
 ## ⛳️ Checkpoint 2: Challenge 🌊
 
-`Khazum.sol` starts as a DAO contract where each proposal has a title, a deadline, and counters for votes on two nameless options. It takes ERC20 tokens as votes, in contrast to [Khazi.sol](https://github.com/luloxi/evolution-DAO/blob/khazi/packages/hardhat/contracts/Khazi.sol) that takes one vote per address (Hint: compare with Khazum.sol and spot how it's implemented).
+`Khazum.sol` starts as a DAO contract where each proposal has a title, a deadline, and counters for votes on two nameless options. It takes ERC20 tokens as votes, in contrast to [Khazi.sol](https://github.com/luloxi/evolution-DAO/blob/khazi/packages/hardhat/contracts/Khazi.sol) that takes one vote per address (If you're curious, compare with Khazum.sol and spot how it's implemented).
 
 To complete this challenge, we're gonna address two issues with this poll:
 
@@ -58,9 +58,9 @@ To complete this challenge, we're gonna address two issues with this poll:
 
 ## ⛳️ Checkpoint 3: Adding minimum votes to determine a winner 🧑‍🤝‍🧑
 
-First, you should edit the `struct Proposal` and add a `uint256` parameter for minimumVotes.
+First, open `Khazum.sol` located in `packages/hardhat/contracts` and edit the `struct Proposal` to add a `uint256` parameter for minimumVotes.
 
-> (Is there a better way of storing those uint for gas optimization? 🤔)
+> Side quest: (Is there a better way of storing those uint for gas optimization? 🤔)
 
 Now search for this parts of the code and follow the checkpoint 3 instructions there:
 
