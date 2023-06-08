@@ -6,7 +6,7 @@ evolution-DAO is a DAO development repo for building different DAOs with increas
 
 This branch is for Khazum, the next step in difficulty after [Khazi](https://github.com/luloxi/evolution-DAO/tree/khazi).
 
-Todo: See the live version [here]()
+Todo: See the live version [here](http://vote-with-khazum.surge.sh/)
 
 # 🚩 Khazum: Simple DAO
 
