@@ -130,7 +130,7 @@ Phew! That was a long checkpoint! Congratulations on finishing this lesson!
 
 [ ] Can you think of any security risks with this DAO?
 
-### ⚠️ Test it!
+### ⚠️ Test it! (TESTS UNDER CONSTRUCTION)
 
 Now is a good time to run yarn test to run the automated testing function. It will test that you hit the core checkpoints. You are looking for all green checkmarks and passing tests!
 

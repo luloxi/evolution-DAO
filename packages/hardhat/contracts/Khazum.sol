@@ -131,7 +131,7 @@ contract Khazum is Ownable {
     }
 
     // Checkpoint 5: Add a getWinner function similar to getProposal
-    // - takes a _proposalID as parameter
+    // - takes a _proposalId as parameter
     // - reads Winner struct from storage
     // - returns winnerName and winnerAddress
 
