@@ -1,5 +1,3 @@
-// deploy/01_deploy_khazum.js
-
 // const { ethers } = require("hardhat");
 
 const localChainId = "31337";
