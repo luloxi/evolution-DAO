@@ -1,6 +1,6 @@
 // deploy/00_deploy_faucet.js
 
-const { ethers } = require("hardhat");
+// const { ethers } = require("hardhat");
 
 const localChainId = "31337";
 
