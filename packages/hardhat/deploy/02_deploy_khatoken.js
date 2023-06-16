@@ -35,7 +35,6 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
 
   try {
     // Verify the contract only in production
-    const chainId = await getChainId();
     if (chainId !== localChainId) {
       await run("verify:verify", {
         address: token.address,
