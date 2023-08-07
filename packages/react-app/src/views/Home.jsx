@@ -21,6 +21,8 @@ function Home({ yourLocalBalance, readContracts, tx, writeContracts, address }) 
           readContracts.Khazi.proposals(i).then(proposal => {
             return {
               ...proposal,
+              votesForOptionA: parseInt(proposal.votesForOptionA, 10),
+              votesForOptionB: parseInt(proposal.votesForOptionB, 10),
             };
           }),
         );
@@ -30,7 +32,7 @@ function Home({ yourLocalBalance, readContracts, tx, writeContracts, address }) 
       // with the order reversed to show the newest at the top
 
       Promise.all(promises).then(results => {
-        setProposals(results);
+        setProposals(results.reverse());
       });
     }
   }, [proposalCount, readContracts.Khazi]);
@@ -38,12 +40,12 @@ function Home({ yourLocalBalance, readContracts, tx, writeContracts, address }) 
   return (
     <div style={{ paddingBottom: "30px" }}>
       <div style={{ margin: 32 }}>
-        <Row gutter={[16, 16]} justify="end">
+        <Row gutter={[16, 16]}>
           {proposals.map((proposal, index) => (
             <Col key={index} xs={24} sm={24} md={12} lg={8}>
               <ProposalCard
                 proposal={proposal}
-                proposalId={index}
+                proposalId={proposals.length - index - 1}
                 tx={tx}
                 readContracts={readContracts}
                 writeContracts={writeContracts}
